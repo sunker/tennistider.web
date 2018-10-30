@@ -5,13 +5,15 @@ import store from './store'
 import jwt_decode from 'jwt-decode'
 import setAuthToken from './setAuthToken'
 import { setCurrentUser, logoutUser } from './actions/authentication'
-
+import CssBaseline from '@material-ui/core/CssBaseline'
 import Navbar from './components/Navbar'
 import Register from './components/Register'
 import Login from './components/Login'
+import FavouriteClub from './components/pages/FavouriteClub'
 import Home from './components/Home'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
-
+import withStyles from '@material-ui/core/styles/withStyles'
+import { layout, styles } from './styles'
 import { createMuiTheme } from '@material-ui/core/styles'
 const muiTheme = createMuiTheme({
   palette: {
@@ -44,14 +46,24 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <MuiThemeProvider theme={muiTheme}>
-            <div>
-              <Navbar />
-              <Route exact path="/" component={Home} />
-              <div className="container">
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
-              </div>
-            </div>
+            <React.Fragment>
+              <CssBaseline />
+              <main className={this.props.classes.layout}>
+                <div>
+                  <Navbar />
+                  <div className="container">
+                    <Route exact path="/" component={Home} />
+                    <Route
+                      exact
+                      path="/valj-klubbar"
+                      component={FavouriteClub}
+                    />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/login" component={Login} />
+                  </div>
+                </div>
+              </main>
+            </React.Fragment>
           </MuiThemeProvider>
         </Router>
       </Provider>
@@ -59,4 +71,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withStyles(styles)(App)
