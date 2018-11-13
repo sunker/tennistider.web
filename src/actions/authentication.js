@@ -1,5 +1,12 @@
 import axios from 'axios'
-import { GET_ERRORS, SET_CURRENT_USER, RECEIVE_SETTINGS } from './types'
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  RECEIVE_SETTINGS,
+  LOADING_INITIAL_DATA_CHANGED,
+  SET_CLUBS,
+  INIT_SLOT_FILTER_SETTINGS
+} from './types'
 import setAuthToken from '../setAuthToken'
 import jwt_decode from 'jwt-decode'
 
@@ -26,6 +33,7 @@ export const loginUser = user => dispatch => {
       let { locations, clubSettings: clubs, ...jwt } = decoded
       locations = locations.length > 0 ? locations : ['Stockholm']
       dispatch(setCurrentUser(jwt))
+      loadInitialData()
     })
     .catch(err => {
       dispatch({
@@ -35,18 +43,49 @@ export const loginUser = user => dispatch => {
     })
 }
 
+export const loadInitialData = () => async (dispatch, getStore) => {
+  if (getStore().club.clubs.length === 0) {
+    dispatch({ type: LOADING_INITIAL_DATA_CHANGED, payload: true })
+    const [user, clubs] = await Promise.all([
+      axios.get('/api/users/me'),
+      axios.get('/api/club/list')
+    ])
+    dispatch({ type: SET_CLUBS, payload: clubs.data })
+    const locations =
+      !user.data.locations || user.data.locations.length === 0
+        ? ['Stockholm']
+        : user.data.locations
+    dispatch({
+      type: RECEIVE_SETTINGS,
+      payload: {
+        locations,
+        clubs: user.data.slotPreference
+      }
+    })
+    dispatch({
+      type: INIT_SLOT_FILTER_SETTINGS,
+      payload: {
+        locations,
+        clubs: user.data.slotPreference,
+        initialized: true
+      }
+    })
+    dispatch({ type: LOADING_INITIAL_DATA_CHANGED, payload: false })
+  }
+}
+
 export const setCurrentUser = decoded => dispatch => {
   let { locations, clubSettings: clubs, ...jwt } = decoded
-  locations = !locations ? [] : locations.length > 0 ? locations : ['Stockholm']
+  locations = !locations || locations.length === 0 ? ['Stockholm'] : locations
   clubs = !clubs ? [] : clubs
   dispatch({
     type: SET_CURRENT_USER,
     payload: jwt
   })
-  dispatch({
-    type: RECEIVE_SETTINGS,
-    payload: { locations, clubs }
-  })
+  //   dispatch({
+  //     type: RECEIVE_SETTINGS,
+  //     payload: { locations, clubs }
+  //   })
 }
 
 export const logoutUser = history => dispatch => {

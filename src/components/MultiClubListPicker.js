@@ -15,7 +15,7 @@ var divStyle = {
   width: '100%'
 }
 
-class MultiClubPicker extends Component {
+class MultiClubListPicker extends Component {
   render() {
     const { clubs } = this.props
     return (
@@ -40,9 +40,9 @@ class MultiClubPicker extends Component {
   }
 }
 
-MultiClubPicker.propTypes = {
+MultiClubListPicker.propTypes = {
   classes: PropTypes.object.isRequired,
   onValueChange: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(MultiClubPicker)
+export default withStyles(styles)(MultiClubListPicker)

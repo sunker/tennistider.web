@@ -4,26 +4,39 @@ import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from '../../styles'
 import PropTypes from 'prop-types'
-import { getClubs, toggleFavouriteClub } from '../../actions/club'
+import Button from '@material-ui/core/Button'
+import { toggleFavouriteClub } from '../../actions/club'
+import { saveFavouriteClubs, toggleLocation } from '../../actions/userSettings'
 import LocationPicker from '../LocationPicker'
-import MultiClubPicker from '../MultiClubPicker'
-import { getClubsByLocationWithUserData } from '../../selectors'
+import MultiClubListPicker from '../MultiClubListPicker'
+import {
+  getClubsByLocationWithUserData,
+  getLocationsWithUserData
+} from '../../selectors'
 
 class SelectFavouriteClubs extends Component {
   constructor() {
     super()
     this.handleClubToggle = this.handleClubToggle.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+    this.handleLocationChange = this.handleLocationChange.bind(this)
   }
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/login')
-    } else {
-      this.props.getClubs()
     }
   }
 
   handleClubToggle(id) {
     this.props.toggleFavouriteClub(id)
+  }
+
+  handleSave() {
+    this.props.saveFavouriteClubs()
+  }
+
+  handleLocationChange(event) {
+    this.props.toggleLocation(event.target.value)
   }
 
   render() {
@@ -37,9 +50,25 @@ class SelectFavouriteClubs extends Component {
             marginBottom: '24px'
           }}
         >
-          <LocationPicker />
+          <LocationPicker
+            onValueChange={this.handleLocationChange}
+            locations={this.props.locationsWithUserData}
+          />
         </div>
-        <MultiClubPicker onValueChange={this.handleClubToggle} clubs={clubs} />
+        <MultiClubListPicker
+          onValueChange={this.handleClubToggle}
+          clubs={clubs}
+        />
+
+        <Button
+          onClick={this.handleSave}
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+        >
+          Spara
+        </Button>
       </Paper>
     )
   }
@@ -48,18 +77,20 @@ class SelectFavouriteClubs extends Component {
 SelectFavouriteClubs.propTypes = {
   classes: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  getClubs: PropTypes.func.isRequired,
   toggleFavouriteClub: PropTypes.func.isRequired,
-  settings: PropTypes.object.isRequired
+  saveFavouriteClubs: PropTypes.func.isRequired,
+  settings: PropTypes.object.isRequired,
+  toggleLocation: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
   settings: state.settings,
-  clubs: getClubsByLocationWithUserData(state)
+  clubs: getClubsByLocationWithUserData(state),
+  locationsWithUserData: getLocationsWithUserData(state)
 })
 
 export default connect(
   mapStateToProps,
-  { toggleFavouriteClub, getClubs }
+  { toggleFavouriteClub, saveFavouriteClubs, toggleLocation }
 )(withStyles(styles)(SelectFavouriteClubs))

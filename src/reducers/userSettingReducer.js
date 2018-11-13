@@ -4,10 +4,12 @@ import {
   RECEIVE_SETTINGS,
   REMOVE_LOCATION,
   ADD_LOCATION,
-  SET_LOCATIONS
+  SET_LOCATIONS,
+  LOADING_INITIAL_DATA_CHANGED
 } from '../actions/types'
 
 const initialState = {
+  loading: false,
   clubs: [],
   locations: []
 }
@@ -43,6 +45,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         locations: action.payload
+      }
+    case LOADING_INITIAL_DATA_CHANGED:
+      return {
+        ...state,
+        loading: action.payload
       }
     default:
       return state

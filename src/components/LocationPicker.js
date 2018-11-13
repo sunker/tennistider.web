@@ -6,8 +6,6 @@ import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import PropTypes from 'prop-types'
-import { toggleLocation } from '../actions/userSettings'
-import { getLocationsWithUserData } from '../selectors'
 import MenuItem from '@material-ui/core/MenuItem'
 import Checkbox from '@material-ui/core/Checkbox'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -24,14 +22,6 @@ const MenuProps = {
 }
 
 class LocationPicker extends Component {
-  constructor() {
-    super()
-    this.handleToggle = this.handleToggle.bind(this)
-  }
-  handleToggle(event) {
-    this.props.toggleLocation(event.target.value)
-  }
-
   render() {
     const { locations } = this.props
     return (
@@ -40,10 +30,9 @@ class LocationPicker extends Component {
         <Select
           multiple
           value={locations.filter(x => x.selected).map(y => y.name)}
-          onChange={this.handleToggle}
+          onChange={this.props.onValueChange}
           input={<Input id="select-multiple" />}
           MenuProps={MenuProps}
-          //   renderValue={selected => selected.join(', ')}
           renderValue={selected => (
             <div>
               {locations.filter(x => x.selected).map((value, i) => (
@@ -52,9 +41,6 @@ class LocationPicker extends Component {
             </div>
           )}
         >
-          {/* {locations.map((l, i) => (
-            <Chip value={l.name} key={i} label={l.name} />
-          ))} */}
           {locations.map((l, i) => (
             <MenuItem value={l.name} key={i}>
               <Checkbox checked={l.selected} />
@@ -68,14 +54,11 @@ class LocationPicker extends Component {
 }
 
 LocationPicker.propTypes = {
-  toggleLocation: PropTypes.func.isRequired
+  onValueChange: PropTypes.func.isRequired,
+  locations: PropTypes.array.isRequired
 }
 
-const mapStateToProps = state => ({
-  locations: getLocationsWithUserData(state)
-})
-
 export default connect(
-  mapStateToProps,
-  { toggleLocation }
+  null,
+  {}
 )(LocationPicker)
