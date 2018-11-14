@@ -15,9 +15,14 @@ export const setFilterLocations = locations => dispatch => {
 export const loadSlots = () => async (dispatch, getStore) => {
   const { data } = await axios.get('/api/slot/upcoming')
   console.log(data)
+  const { club } = getStore()
+  const slots = data.map(s => ({
+    ...s,
+    ...club.clubs.find(c => c.id === s.clubId)
+  }))
   dispatch({
     type: RECEIVE_SLOTS,
-    payload: data
+    payload: slots
   })
 }
 

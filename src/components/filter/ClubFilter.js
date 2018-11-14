@@ -10,6 +10,7 @@ import {
   getClubsByLocationWithUserData,
   getLocationsWithUserData
 } from '../../selectors'
+import { flattenProp } from 'recompose'
 
 class ClubFilter extends Component {
   constructor() {
@@ -29,28 +30,24 @@ class ClubFilter extends Component {
   render() {
     const { clubs } = this.props
     return (
-      <React.Fragment>
-        <div
-          style={{
-            width: '100%',
-            marginLeft: '24px',
-            marginBottom: '24px'
-          }}
-        >
-          <LocationPicker
-            onValueChange={this.handleLocationChange}
-            locations={this.props.locationsWithUserData}
-          />
-        </div>
+      <div
+        style={{
+          width: '90%',
+          marginLeft: '24px',
+          marginBottom: '24px',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
+        <LocationPicker
+          onValueChange={this.handleLocationChange}
+          locations={this.props.locationsWithUserData}
+        />
         <MultiClubSelectPicker
           onValueChange={this.handleClubFilterToggle}
           clubs={clubs}
         />
-        {/* <MultiClubListPicker
-          onValueChange={this.handleClubFilterToggle}
-          clubs={clubs}
-        /> */}
-      </React.Fragment>
+      </div>
     )
   }
 }

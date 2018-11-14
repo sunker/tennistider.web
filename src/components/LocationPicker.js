@@ -26,18 +26,22 @@ class LocationPicker extends Component {
     const { locations } = this.props
     return (
       <FormControl>
-        <InputLabel htmlFor="select-multiple-chip">Städer</InputLabel>
+        <InputLabel htmlFor="select-multiple-locations">Städer</InputLabel>
         <Select
           multiple
           value={locations.filter(x => x.selected).map(y => y.name)}
           onChange={this.props.onValueChange}
-          input={<Input id="select-multiple" />}
+          input={<Input id="select-multiple-locations" />}
           MenuProps={MenuProps}
           renderValue={selected => (
             <div>
-              {locations.filter(x => x.selected).map((value, i) => (
-                <Chip key={value.name} label={value.name} />
-              ))}
+              {locations.filter(x => x.selected).length > 3
+                ? 'Flera städer valda'
+                : locations
+                    .filter(x => x.selected)
+                    .map((value, i) => (
+                      <Chip key={value.name} label={value.name} />
+                    ))}
             </div>
           )}
         >

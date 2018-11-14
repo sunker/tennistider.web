@@ -26,8 +26,16 @@ export const getClubsByLocationWithUserData = (
   }))
 }
 
+function slotHasSelectedLocation(slot, clubs, locations) {
+  return locations.includes(clubs.find(c => c.id === slot.clubId).location)
+}
+
 export const filteredSlots = state => {
-  const { slot, clubs } = state
+  const { slot, club } = state
   const filteredClubsids = slot.settings.clubs.map(c => c.clubId)
-  return slot.slots.filter(s => filteredClubsids.includes(s.clubId))
+  return slot.slots.filter(
+    s =>
+      filteredClubsids.includes(s.clubId) &&
+      slotHasSelectedLocation(s, club.clubs, slot.settings.locations)
+  )
 }

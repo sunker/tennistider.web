@@ -13,7 +13,8 @@ import Chip from '@material-ui/core/Chip'
 import Select from '@material-ui/core/Select'
 
 var divStyle = {
-  width: '100%'
+  minWidth: 120,
+  maxWidth: 300
 }
 
 const ITEM_HEIGHT = 48
@@ -22,7 +23,8 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
+      width: 250,
+      maxWidth: '100%'
     }
   }
 }
@@ -31,19 +33,22 @@ class MultiClubSelectPicker extends Component {
   render() {
     const { clubs } = this.props
     return (
-      <FormControl style={divStyle}>
-        <InputLabel htmlFor="select-multiple-chip">Klubbar</InputLabel>
+      <FormControl>
+        <InputLabel htmlFor="select-multiple-clubs">Klubbar</InputLabel>
         <Select
+          style={{ maxWidth: '100%' }}
           multiple
           value={clubs.filter(x => x.selected).map(y => y.id)}
           onChange={this.props.onValueChange}
-          input={<Input id="select-multiple" />}
+          input={<Input id="select-multiple-clubs" />}
           MenuProps={MenuProps}
           renderValue={selected => (
             <div>
-              {clubs.filter(x => x.selected).map((c, i) => (
-                <Chip key={c.id} label={c.name} />
-              ))}
+              {clubs.filter(x => x.selected).length > 3
+                ? `${clubs.filter(x => x.selected).length} klubbar valda`
+                : clubs
+                    .filter(x => x.selected)
+                    .map((c, i) => <Chip key={c.id} label={c.name} />)}
             </div>
           )}
         >

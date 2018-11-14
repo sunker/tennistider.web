@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import Paper from '@material-ui/core/Paper'
+import { loadSlots } from '../../actions/slotFilter'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from '../../styles'
 import PropTypes from 'prop-types'
-import { loadSlots } from '../../actions/slotFilter'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import Typography from '@material-ui/core/Typography'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ClubFilter from '../filter/ClubFilter'
+import SlotList from '../SlotList'
 import { filteredSlots } from '../../selectors'
 
 class SlotFinder extends Component {
@@ -17,7 +24,7 @@ class SlotFinder extends Component {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/login')
     } else {
-      this.props.loadSlots()
+      // this.props.loadSlots()
     }
   }
 
@@ -25,11 +32,18 @@ class SlotFinder extends Component {
     const { classes, slots } = this.props
     return (
       <Paper className={classes.paper}>
-        <ClubFilter />
+        <ExpansionPanel
+          style={{
+            width: '100%'
+          }}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography>Filter</Typography>
+          </ExpansionPanelSummary>
+          <ClubFilter />
+        </ExpansionPanel>
         <hr />
-        {slots.map(s => (
-          <p>{s.clubName}</p>
-        ))}
+        <SlotList slots={this.props.slots} />
       </Paper>
     )
   }

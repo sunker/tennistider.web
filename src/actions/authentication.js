@@ -5,7 +5,8 @@ import {
   RECEIVE_SETTINGS,
   LOADING_INITIAL_DATA_CHANGED,
   SET_CLUBS,
-  INIT_SLOT_FILTER_SETTINGS
+  INIT_SLOT_FILTER_SETTINGS,
+  RECEIVE_SLOTS
 } from './types'
 import setAuthToken from '../setAuthToken'
 import jwt_decode from 'jwt-decode'
@@ -46,9 +47,10 @@ export const loginUser = user => dispatch => {
 export const loadInitialData = () => async (dispatch, getStore) => {
   if (getStore().club.clubs.length === 0) {
     dispatch({ type: LOADING_INITIAL_DATA_CHANGED, payload: true })
-    const [user, clubs] = await Promise.all([
+    let [user, clubs, slots] = await Promise.all([
       axios.get('/api/users/me'),
-      axios.get('/api/club/list')
+      axios.get('/api/club/list'),
+      axios.get('/api/slot/upcoming')
     ])
     dispatch({ type: SET_CLUBS, payload: clubs.data })
     const locations =
@@ -69,6 +71,14 @@ export const loadInitialData = () => async (dispatch, getStore) => {
         clubs: user.data.slotPreference,
         initialized: true
       }
+    })
+    slots = slots.data.map(s => ({
+      ...s,
+      ...clubs.data.find(c => c.id === s.clubId)
+    }))
+    dispatch({
+      type: RECEIVE_SLOTS,
+      payload: slots
     })
     dispatch({ type: LOADING_INITIAL_DATA_CHANGED, payload: false })
   }
