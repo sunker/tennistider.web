@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Paper from '@material-ui/core/Paper'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from '../styles'
 import PropTypes from 'prop-types'
@@ -11,11 +10,6 @@ import Input from '@material-ui/core/Input'
 import MenuItem from '@material-ui/core/MenuItem'
 import Chip from '@material-ui/core/Chip'
 import Select from '@material-ui/core/Select'
-
-var divStyle = {
-  minWidth: 120,
-  maxWidth: 300
-}
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8

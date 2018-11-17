@@ -2,8 +2,6 @@ import {
   INIT_SLOT_FILTER_SETTINGS,
   SET_FILTER_LOCATIONS,
   RECEIVE_SLOTS,
-  ADD_FILTERED_CLUB,
-  REMOVE_FILTERED_CLUB,
   SET_FILTERED_CLUBS
 } from '../actions/types'
 
@@ -27,24 +25,6 @@ export default function(state = initialState, action) {
         ...state,
         slots: action.payload
       }
-    // case ADD_FILTERED_CLUB:
-    //   return {
-    //     ...state,
-    //     settings: {
-    //       ...state.settings,
-    //       clubs: [...state.settings.clubs, action.payload]
-    //     }
-    //   }
-    // case REMOVE_FILTERED_CLUB:
-    //   return {
-    //     ...state,
-    //     settings: {
-    //       ...state.settings,
-    //       clubs: state.settings.clubs.filter(
-    //         f => f.clubId !== action.payload.clubId
-    //       )
-    //     }
-    //   }
     case SET_FILTERED_CLUBS:
       return {
         ...state,

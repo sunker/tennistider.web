@@ -10,7 +10,6 @@ import {
   getClubsByLocationWithUserData,
   getLocationsWithUserData
 } from '../../selectors'
-import { flattenProp } from 'recompose'
 
 class ClubFilter extends Component {
   constructor() {
