@@ -58,7 +58,6 @@ class App extends Component {
               <CssBaseline />
               <main className={this.props.classes.layout}>
                 <div>
-                  <Navbar />
                   <div className="container">
                     {/* {this.props.settings.loading ? (
                       <CircularProgress
@@ -86,6 +85,8 @@ class App extends Component {
                     {/* )} */}
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
+
+                    <Navbar />
                   </div>
                 </div>
               </main>
