@@ -1,9 +1,9 @@
 
 {
-    "root": "/build/",
+    "root": "/app/bin/build/",
     "https_only": true,
     "routes": {
-      "/**": "/build/index.html"
+      "/**": "index.html"
     },
     "proxies": {
       "/api/": {
