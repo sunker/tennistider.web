@@ -35,7 +35,7 @@ export const loginUser = user => dispatch => {
       let { locations, clubSettings: clubs, ...jwt } = decoded
       locations = locations.length > 0 ? locations : ['Stockholm']
       dispatch(setCurrentUser(jwt))
-      loadInitialData()
+      dispatch(loadInitialData())
     })
     .catch(err => {
       dispatch({
@@ -46,7 +46,6 @@ export const loginUser = user => dispatch => {
 }
 
 export const loadInitialData = () => async (dispatch, getStore) => {
-  console.log(getStore().club.clubs.length)
   if (getStore().club.clubs.length === 0) {
     dispatch({ type: LOADING_INITIAL_DATA_CHANGED, payload: true })
     let [user, clubs, slots] = await Promise.all([
