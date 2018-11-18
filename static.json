@@ -6,7 +6,7 @@
     },
     "proxies": {
       "/api/": {
-        "origin": "https://tennistiderapi-aglditdgtr.now.sh/"
+        "origin": "https://tennistiderapi-aglditdgtr.now.sh/api/"
       }
     }
   }
