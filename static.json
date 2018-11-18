@@ -1,0 +1,10 @@
+
+{
+    "root": "dist/",
+    "https_only": true,
+    "proxies": {
+      "/api/": {
+        "origin": "https://tennistiderapi-aglditdgtr.now.sh/api"
+      }
+    }
+  }

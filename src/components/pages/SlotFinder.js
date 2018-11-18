@@ -5,6 +5,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from '../../styles'
+import FilterIcon from '@material-ui/icons/FilterList'
 import PropTypes from 'prop-types'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
@@ -28,13 +29,17 @@ class SlotFinder extends Component {
           style={{
             width: '100%'
           }}
+          expanded={true}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Filter</Typography>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <FilterIcon className={classes.icon} style={{ marginRight: 6 }} />
+              <Typography>Filter</Typography>
+            </div>
           </ExpansionPanelSummary>
           <ClubFilter />
         </ExpansionPanel>
-        <hr />
+        <p>{slots.length} tider matchade dina val</p>
         <SlotList slots={slots} />
       </Paper>
     )

@@ -19,7 +19,7 @@ class SlotList extends Component {
     const days = _.groupBy(slots.sort(s => s.date), s =>
       new Date(s.date).getDate()
     )
-    console.log(days)
+
     return (
       <List style={divStyle}>
         {Object.keys(days).map((day, i) => (

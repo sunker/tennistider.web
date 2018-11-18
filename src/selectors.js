@@ -33,9 +33,12 @@ function slotHasSelectedLocation(slot, clubs, locations) {
 export const filteredSlots = state => {
   const { slot, club } = state
   const filteredClubsids = slot.settings.clubs.map(c => c.clubId)
+  console.log(slot.slots)
   return slot.slots.filter(
     s =>
       filteredClubsids.includes(s.clubId) &&
-      slotHasSelectedLocation(s, club.clubs, slot.settings.locations)
+      slotHasSelectedLocation(s, club.clubs, slot.settings.locations) &&
+      s.date.getTime() >= slot.settings.startDate.getTime() &&
+      s.date.getTime() <= slot.settings.endDate.getTime()
   )
 }

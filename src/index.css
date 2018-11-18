@@ -9,3 +9,13 @@ body {
   background: -o-linear-gradient(right, #76b852, #8DC26F);
   background: linear-gradient(to left, #76b852, #8DC26F);
 }
+
+.rc-slider-track { 
+  /* background-color: #4CAF50 !important; */
+  background-color: #ffa266 !important;
+  border: solid 2px #ffa266 !important;
+}
+
+.rc-slider-handle:hover {
+  border: solid 2px #ffa266 !important;
+}

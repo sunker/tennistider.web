@@ -7,7 +7,6 @@ import ListItem from '@material-ui/core/ListItem'
 import SlotsPerClubAndDay from './SlotsPerClubAndDay'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
-import { Divider } from '@material-ui/core'
 
 class DaySlotsPerClub extends Component {
   render() {

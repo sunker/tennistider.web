@@ -72,10 +72,20 @@ export const loadInitialData = () => async (dispatch, getStore) => {
         initialized: true
       }
     })
-    slots = slots.data.map(s => ({
-      ...s,
-      ...clubs.data.find(c => c.id === s.clubId)
-    }))
+    slots = slots.data.map(s => {
+      const date = new Date(s.date)
+      date.setHours(Math.trunc(s.startTime))
+      const narray = s.startTime.toString().split('.')
+      const result = narray.length > 1 ? `${narray[1]}0` : '0.0'
+      date.setMinutes(Number(result))
+      date.setSeconds(0)
+      date.setMilliseconds(0)
+      return {
+        ...s,
+        ...clubs.data.find(c => c.id === s.clubId),
+        date
+      }
+    })
     dispatch({
       type: RECEIVE_SLOTS,
       payload: slots

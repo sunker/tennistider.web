@@ -1,7 +1,8 @@
 {
-  "name": "frontend",
+  "name": "tennistider.web",
   "version": "0.1.0",
   "private": true,
+  "alias": "tennistider.web",
   "dependencies": {
     "@material-ui/core": "^3.3.0",
     "@material-ui/icons": "^3.0.1",
@@ -11,13 +12,15 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "lodash.uniq": "^4.5.0",
+    "rc-slider": "^8.6.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "serve": "^10.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

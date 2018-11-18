@@ -3,6 +3,8 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import Badge from './SimpleBadge'
+import _ from 'lodash'
 
 const styles = theme => ({
   container: {
@@ -26,12 +28,13 @@ const styles = theme => ({
 class SlotsPerClubAndDay extends Component {
   render() {
     let { slots, classes } = this.props
+    const groups = _.groupBy(slots, s => s.startTime)
     return (
       <Grid style={{ marginTop: '2px' }} container spacing={16}>
-        {slots.map((s, i) => (
+        {Object.keys(groups).map((s, i) => (
           <Grid style={{ padding: '2px 4px' }} item xs={2} key={i}>
             <Paper className={classes.paper}>
-              {s.startTime}
+              {s}
               <sup
                 style={{
                   verticalAlign: 'text-top',
@@ -39,18 +42,22 @@ class SlotsPerClubAndDay extends Component {
                   marginLeft: '1px'
                 }}
               >
-                {s.startTime > 9
-                  ? s.startTime
+                {Number(s) > 9
+                  ? Number(s)
                       .toFixed(2)
                       .toString()
                       .replace('.', '')
                       .substring(2, 4)
-                  : s.startTime
+                  : Number(s)
                       .toFixed(2)
                       .toString()
                       .replace('.', '')
                       .substring(1, 3)}
               </sup>
+
+              {groups[s].length > 1 && (
+                <Badge badgeContent={groups[s].length} color="primary" />
+              )}
             </Paper>
           </Grid>
         ))}

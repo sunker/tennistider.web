@@ -1,0 +1,6 @@
+{
+    "rules": [
+      { "pathname": "/api/**", "method": ["GET", "POST"], "dest": "tennistiderapi-aglditdgtr.now.sh" },
+      { "dest": "tennistiderweb-refjzoxhfx.now.sh" }
+    ]
+  }
