@@ -6,7 +6,8 @@ import {
   LOADING_INITIAL_DATA_CHANGED,
   SET_CLUBS,
   INIT_SLOT_FILTER_SETTINGS,
-  RECEIVE_SLOTS
+  RECEIVE_SLOTS,
+  LOGOUT
 } from './types'
 import setAuthToken from '../setAuthToken'
 import jwt_decode from 'jwt-decode'
@@ -45,6 +46,7 @@ export const loginUser = user => dispatch => {
 }
 
 export const loadInitialData = () => async (dispatch, getStore) => {
+  console.log(getStore().club.clubs.length)
   if (getStore().club.clubs.length === 0) {
     dispatch({ type: LOADING_INITIAL_DATA_CHANGED, payload: true })
     let [user, clubs, slots] = await Promise.all([
@@ -102,15 +104,36 @@ export const setCurrentUser = decoded => dispatch => {
     type: SET_CURRENT_USER,
     payload: jwt
   })
-  //   dispatch({
-  //     type: RECEIVE_SETTINGS,
-  //     payload: { locations, clubs }
-  //   })
+
+  dispatch({
+    type: RECEIVE_SETTINGS,
+    payload: { locations, clubs }
+  })
 }
 
 export const logoutUser = history => dispatch => {
   localStorage.removeItem('jwtToken')
   setAuthToken(false)
   dispatch(setCurrentUser({}))
+  dispatch({
+    type: RECEIVE_SETTINGS,
+    payload: {
+      locations: [],
+      clubs: []
+    }
+  })
+  dispatch({
+    type: INIT_SLOT_FILTER_SETTINGS,
+    payload: {
+      locations: [],
+      clubs: [],
+      initialized: false
+    }
+  })
+  dispatch({ type: SET_CLUBS, payload: [] })
+  dispatch({
+    type: RECEIVE_SLOTS,
+    payload: []
+  })
   history.push('/login')
 }

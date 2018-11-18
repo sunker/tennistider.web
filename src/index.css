@@ -10,6 +10,11 @@ body {
   background: linear-gradient(to left, #76b852, #8DC26F);
 }
 
+.App-layout-1 {
+  margin-left: 6px !important;
+  margin-right: 6px !important;
+}
+
 .rc-slider-track { 
   /* background-color: #4CAF50 !important; */
   background-color: #ffa266 !important;

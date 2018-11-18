@@ -7,6 +7,7 @@ import {
   SET_LOCATIONS,
   LOADING_INITIAL_DATA_CHANGED
 } from '../actions/types'
+import { defaultSlotSettings } from '../slotDefaults'
 
 const initialState = {
   loading: false,
@@ -24,12 +25,26 @@ export default function(state = initialState, action) {
     case ADD_FAVOURITE_CLUB:
       return {
         ...state,
-        clubs: [...state.clubs, action.payload]
+        clubs:
+          state.clubs.find(c => c.clubId === action.payload.clubId) ===
+          undefined
+            ? [...state.clubs, { ...action.payload, days: defaultSlotSettings }]
+            : state.clubs.filter(f => {
+                if (f.clubId === action.payload.clubId) {
+                  f.inactivated = false
+                }
+                return f
+              })
       }
     case REMOVE_FAVOURITE_CLUB:
       return {
         ...state,
-        clubs: state.clubs.filter(f => f.clubId !== action.payload.clubId)
+        clubs: state.clubs.filter(f => {
+          if (f.clubId === action.payload.clubId) {
+            f.inactivated = true
+          }
+          return f
+        })
       }
     case ADD_LOCATION:
       return {

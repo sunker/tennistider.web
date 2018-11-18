@@ -14,7 +14,8 @@ export const toggleFavouriteClub = (clubId, favourites) => (
   const favourites = getStore().settings.clubs
   const club = favourites.find(c => c.clubId === clubId)
   dispatch({
-    type: club ? REMOVE_FAVOURITE_CLUB : ADD_FAVOURITE_CLUB,
+    type:
+      !club || club.inactivated ? ADD_FAVOURITE_CLUB : REMOVE_FAVOURITE_CLUB,
     payload: { clubId }
   })
 }

@@ -22,7 +22,8 @@ export const getClubsByLocationWithUserData = (
 
   return clubsByLocation.map(c => ({
     ...c,
-    selected: target.clubs.find(x => x.clubId === c.id) != null
+    selected:
+      target.clubs.find(x => x.clubId === c.id && !x.inactivated) != null
   }))
 }
 
