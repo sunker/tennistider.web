@@ -3,7 +3,7 @@
     "root": "/build/",
     "https_only": true,
     "routes": {
-      "/**": "index.html"
+      "/**": "/build/index.html"
     },
     "proxies": {
       "/api/": {
