@@ -9,6 +9,7 @@ import { toggleFavouriteClub } from '../../actions/club'
 import { saveFavouriteClubs, toggleLocation } from '../../actions/userSettings'
 import LocationPicker from '../LocationPicker'
 import MultiClubListPicker from '../MultiClubListPicker'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import {
   getClubsByLocationWithUserData,
   getLocationsWithUserData
@@ -43,32 +44,41 @@ class SelectFavouriteClubs extends Component {
     const { classes, clubs } = this.props
     return (
       <Paper className={classes.paper}>
-        <div
-          style={{
-            width: '100%',
-            marginLeft: '24px',
-            marginBottom: '24px'
-          }}
-        >
-          <LocationPicker
-            onValueChange={this.handleLocationChange}
-            locations={this.props.locationsWithUserData}
-          />
-        </div>
-        <MultiClubListPicker
-          onValueChange={this.handleClubToggle}
-          clubs={clubs}
-        />
+        {clubs.length === 0 ? (
+          <React.Fragment>
+            <CircularProgress style={{ marginTop: 48 }} />
+            <p>Hämtar inställningar...</p>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <div
+              style={{
+                width: '100%',
+                marginLeft: '24px',
+                marginBottom: '24px'
+              }}
+            >
+              <LocationPicker
+                onValueChange={this.handleLocationChange}
+                locations={this.props.locationsWithUserData}
+              />
+            </div>
+            <MultiClubListPicker
+              onValueChange={this.handleClubToggle}
+              clubs={clubs}
+            />
 
-        <Button
-          onClick={this.handleSave}
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-        >
-          Spara
-        </Button>
+            <Button
+              onClick={this.handleSave}
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
+              Spara
+            </Button>
+          </React.Fragment>
+        )}
       </Paper>
     )
   }

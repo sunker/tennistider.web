@@ -12,13 +12,30 @@ import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ClubFilter from '../filter/ClubFilter'
 import SlotList from '../SlotList'
+import Dialog from '../Dialog'
+import Button from '@material-ui/core/Button'
 import { filteredSlots } from '../../selectors'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 class SlotFinder extends Component {
+  state = {
+    open: false
+  }
+
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/login')
     }
+  }
+
+  handleClickOpen = () => {
+    this.setState({
+      open: true
+    })
+  }
+
+  handleClose = value => {
+    this.setState({ selectedValue: value, open: false })
   }
 
   render() {
@@ -39,7 +56,19 @@ class SlotFinder extends Component {
           </ExpansionPanelSummary>
           <ClubFilter />
         </ExpansionPanel>
+        {/* <Button onClick={this.handleClickOpen}>Open simple dialog</Button>
+        <Dialog
+          selectedValue={this.state.selectedValue}
+          open={this.state.open}
+          onClose={this.handleClose}
+        /> */}
         <p>{slots.length} tider matchade dina val</p>
+        {slots.length === 0 && (
+          <React.Fragment>
+            <CircularProgress />
+            <p>Hämtar tider...</p>
+          </React.Fragment>
+        )}
         <SlotList slots={slots} />
       </Paper>
     )

@@ -34,7 +34,9 @@ class DaySlotsPerClub extends Component {
                 primary={clubs[clubId][0].name}
               />
             </ListItem>
-            <SlotsPerClubAndDay slots={_.sortBy(clubs[clubId], 'startTime')} />
+            <SlotsPerClubAndDay
+              slots={_.sortBy(clubs[clubId], c => new Date(c.date).getTime())}
+            />
           </div>
         ))}
       </React.Fragment>

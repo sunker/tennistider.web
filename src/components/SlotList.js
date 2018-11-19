@@ -16,23 +16,26 @@ var divStyle = {
 class SlotList extends Component {
   render() {
     const { slots } = this.props
-    const days = _.groupBy(slots.sort(s => s.date), s =>
-      new Date(s.date).getDate()
+    const days = _.groupBy(
+      slots.sort(s => new Date(s.date).getTime()),
+      s => `${new Date(s.date).getMonth()}${new Date(s.date).getDate()}`
     )
 
     return (
       <List style={divStyle}>
-        {Object.keys(days).map((day, i) => (
-          <React.Fragment key={i}>
-            <ListSubheader disableSticky={true} style={{ paddingLeft: 0 }}>
-              {prettyDate(new Date(days[day][0].date))}
-            </ListSubheader>
-            <DaySlotsPerClub slots={days[day]} />
-            <li>
-              <Divider style={{ marginTop: '12px' }} />
-            </li>
-          </React.Fragment>
-        ))}
+        {Object.keys(days)
+          .sort()
+          .map((day, i) => (
+            <React.Fragment key={i}>
+              <ListSubheader disableSticky={true} style={{ paddingLeft: 0 }}>
+                {prettyDate(new Date(days[day][0].date))}
+              </ListSubheader>
+              <DaySlotsPerClub slots={days[day]} />
+              <li>
+                <Divider style={{ marginTop: '12px' }} />
+              </li>
+            </React.Fragment>
+          ))}
       </List>
     )
   }
