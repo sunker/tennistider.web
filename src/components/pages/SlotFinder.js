@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
 import Paper from '@material-ui/core/Paper'
 import { loadSlots } from '../../actions/slotFilter'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from '../../styles'
 import FilterIcon from '@material-ui/icons/FilterList'
 import PropTypes from 'prop-types'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ClubFilter from '../filter/ClubFilter'
 import SlotList from '../SlotList'
-import Dialog from '../Dialog'
-import Button from '@material-ui/core/Button'
 import { filteredSlots } from '../../selectors'
+import Collapse from '@material-ui/core/Collapse'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 class SlotFinder extends Component {
@@ -34,35 +30,36 @@ class SlotFinder extends Component {
     })
   }
 
-  handleClose = value => {
-    this.setState({ selectedValue: value, open: false })
+  handleChange = () => {
+    this.setState(state => ({ open: !state.open }))
   }
 
   render() {
     const { classes, slots, settings } = this.props
+    const { open } = this.state
+
     return (
       <Paper className={classes.paper}>
-        <ExpansionPanel
+        <div
           style={{
-            width: '100%'
+            width: '100%',
+            marginLeft: 0,
+            alignItems: 'center',
+            display: 'flex'
           }}
-          expanded={true}
+          onClick={this.handleChange}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <FilterIcon className={classes.icon} style={{ marginRight: 6 }} />
-              <Typography>Filter</Typography>
-            </div>
-          </ExpansionPanelSummary>
+          <FilterIcon className={classes.icon} style={{ marginRight: 6 }} />
+          <Typography variant="h6" style={{ marginLeft: 12 }}>
+            {open ? 'Dölj filter' : 'Visa filter'}
+          </Typography>
+        </div>
+        <Collapse in={open} style={{ width: '100%' }}>
           <ClubFilter />
-        </ExpansionPanel>
-        {/* <Button onClick={this.handleClickOpen}>Open simple dialog</Button>
-        <Dialog
-          selectedValue={this.state.selectedValue}
-          open={this.state.open}
-          onClose={this.handleClose}
-        /> */}
-        <p>{slots.length} tider matchade dina val</p>
+        </Collapse>
+        <Typography style={{ display: 'block' }} align="left">
+          {slots.length} tider hittades
+        </Typography>
         {settings.loading && (
           <React.Fragment>
             <CircularProgress />

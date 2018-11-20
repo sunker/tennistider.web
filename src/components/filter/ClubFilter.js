@@ -61,8 +61,6 @@ class ClubFilter extends Component {
     return (
       <div
         style={{
-          width: '90%',
-          marginLeft: '24px',
           marginBottom: '24px',
           display: 'flex',
           flexDirection: 'column'
