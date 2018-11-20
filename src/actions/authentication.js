@@ -62,7 +62,7 @@ export const loadInitialData = () => async (dispatch, getStore) => {
       type: RECEIVE_SETTINGS,
       payload: {
         locations,
-        clubs: user.data.slotPreference
+        clubs: user.data.slotPreference.map(s => ({ ...s, expanded: false }))
       }
     })
     dispatch({

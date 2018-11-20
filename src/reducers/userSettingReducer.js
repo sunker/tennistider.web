@@ -6,7 +6,9 @@ import {
   ADD_LOCATION,
   SET_LOCATIONS,
   LOADING_INITIAL_DATA_CHANGED,
-  TOGGLE_TIME_RANGE_ACTIVE
+  TOGGLE_TIME_RANGE_ACTIVE,
+  SET_TIME_RANGE,
+  TOGGLE_CLUB_EXPAND
 } from '../actions/types'
 import { defaultSlotSettings } from '../slotDefaults'
 
@@ -67,6 +69,15 @@ export default function(state = initialState, action) {
         ...state,
         loading: action.payload
       }
+    case TOGGLE_CLUB_EXPAND:
+      return {
+        ...state,
+        clubs: state.clubs.map(c => ({
+          ...c,
+          expanded:
+            c.clubId === action.payload.clubId ? !c.expanded : c.expanded
+        }))
+      }
     case TOGGLE_TIME_RANGE_ACTIVE:
       return {
         ...state,
@@ -105,6 +116,63 @@ export default function(state = initialState, action) {
                     ...r,
                     active: i === 0 ? !r.active : r.active
                   }))
+                }
+                break
+
+              default:
+                break
+            }
+            return d
+          })
+          return c
+        })
+      }
+    case SET_TIME_RANGE:
+      return {
+        ...state,
+        clubs: state.clubs.map(c => {
+          if (c.clubId !== action.payload.clubId) return c
+
+          c.days = c.days.map((d, dayIndex) => {
+            switch (action.payload.timeRangeIndex) {
+              case 0: //Mornar
+                if (dayIndex !== 0 && dayIndex !== 6) {
+                  d = d.map((r, i) => {
+                    if (i === 0) {
+                      r = { ...r, ...action.payload.value }
+                    }
+                    return r
+                  })
+                }
+                break
+              case 1: //Luncher
+                if (dayIndex !== 0 && dayIndex !== 6) {
+                  d = d.map((r, i) => {
+                    if (i === 1) {
+                      r = { ...r, ...action.payload.value }
+                    }
+                    return r
+                  })
+                }
+                break
+              case 2: //Kvällar
+                if (dayIndex !== 0 && dayIndex !== 6) {
+                  d = d.map((r, i) => {
+                    if (i === 2) {
+                      r = { ...r, ...action.payload.value }
+                    }
+                    return r
+                  })
+                }
+                break
+              case 3: //Helger
+                if (dayIndex === 0 || dayIndex === 6) {
+                  d = d.map((r, i) => {
+                    if (i === 0) {
+                      r = { ...r, ...action.payload.value }
+                    }
+                    return r
+                  })
                 }
                 break
 

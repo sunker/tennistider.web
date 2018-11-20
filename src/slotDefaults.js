@@ -74,16 +74,16 @@ export const createPickerModelFromPreference = (
     let model
     switch (p.label) {
       case 'Mornar':
-        model = dayPreference[1][0]
+        model = { ...dayPreference[1][0], expanded: false }
         break
       case 'Luncher':
-        model = dayPreference[1][1]
+        model = { ...dayPreference[1][1], expanded: false }
         break
       case 'Kvällar':
-        model = dayPreference[1][2]
+        model = { ...dayPreference[1][2], expanded: false }
         break
       case 'Helger':
-        model = dayPreference[0][0]
+        model = { ...dayPreference[0][0], expanded: false }
         break
       default:
         break

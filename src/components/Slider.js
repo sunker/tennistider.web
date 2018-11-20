@@ -29,7 +29,7 @@ class StepSlider extends React.Component {
       boxShadow: '#ffa266'
     }
     return (
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', marginLeft: 24 }}>
         <Range
           classes={{ container: classes.slider }}
           defaultValue={[startTime, endTime]}

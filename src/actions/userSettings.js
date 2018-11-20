@@ -2,7 +2,9 @@ import axios from 'axios'
 import {
   SET_LOCATIONS,
   RECEIVE_SETTINGS,
-  TOGGLE_TIME_RANGE_ACTIVE
+  TOGGLE_TIME_RANGE_ACTIVE,
+  SET_TIME_RANGE,
+  TOGGLE_CLUB_EXPAND
 } from './types'
 
 export const toggleLocation = locations => dispatch => {
@@ -13,7 +15,11 @@ export const toggleLocation = locations => dispatch => {
 }
 
 export const saveFavouriteClubs = () => async (dispatch, getStore) => {
-  const { locations, clubs } = getStore().settings
+  let { locations, clubs } = getStore().settings
+  clubs = clubs.map(c => {
+    delete c.expanded
+    return c
+  })
   const { data } = await axios.post('/api/club/list', { locations, clubs })
   dispatch({
     type: RECEIVE_SETTINGS,
@@ -28,5 +34,29 @@ export const toggleTimeRangeActive = (clubId, timeRangeIndex) => async (
   dispatch({
     type: TOGGLE_TIME_RANGE_ACTIVE,
     payload: { clubId, timeRangeIndex }
+  })
+}
+
+export const setTimeRange = (
+  clubId,
+  timeRangeIndex,
+  [startTime, endTime]
+) => dispatch => {
+  dispatch({
+    type: SET_TIME_RANGE,
+    payload: {
+      clubId,
+      timeRangeIndex,
+      value: { startTime, endTime, active: true }
+    }
+  })
+}
+
+export const toggleClubExpand = clubId => dispatch => {
+  dispatch({
+    type: TOGGLE_CLUB_EXPAND,
+    payload: {
+      clubId
+    }
   })
 }

@@ -21,19 +21,9 @@ class ClubExpansionList extends Component {
   }
   constructor(props) {
     super()
-    this.setState({
-      clubs: props.clubs.map(c => ({ ...c, expanded: false }))
-    })
   }
 
-  handleClick = club => {
-    this.setState(state => ({
-      clubs: state.clubs.map(c => ({
-        ...c,
-        expanded: c.id === club.id ? !club.expanded : c.expanded
-      }))
-    }))
-  }
+  handleClick = club => {}
 
   render() {
     let { clubs, onExpand } = this.props

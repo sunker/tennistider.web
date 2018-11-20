@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from '../../styles'
 import PropTypes from 'prop-types'
-import { toggleFavouriteClub } from '../../actions/club'
-import { toggleLocation } from '../../actions/userSettings'
+import { toggleClubExpand } from '../../actions/userSettings'
 import ClubExpansionList from './ClubExpansionList'
 import { getFavouriteClubsWithTimeRanges } from '../../selectors'
 
@@ -14,34 +13,12 @@ class ClubTimePicker extends Component {
   }
   constructor() {
     super()
-    this.onExpand = this.onExpand.bind(this)
+    this.onExpandClub = this.onExpandClub.bind(this)
     this.handleLocationChange = this.handleLocationChange.bind(this)
   }
 
-  componentDidMount() {
-    let { clubs } = this.props
-    clubs = clubs.map(c => ({ ...c, expanded: false }))
-    if (clubs && clubs.length > 0) {
-      clubs[0].expanded = true
-    }
-    this.setState({ clubs })
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const clubs = nextProps.clubs.map(c => ({ ...c, expanded: false }))
-    if (clubs && clubs.length > 0) {
-      clubs[0].expanded = true
-    }
-    this.setState({ clubs })
-  }
-
-  onExpand(club) {
-    this.setState(state => ({
-      clubs: state.clubs.map(c => ({
-        ...c,
-        expanded: c.id === club.id ? !club.expanded : c.expanded
-      }))
-    }))
+  onExpandClub(club) {
+    this.props.toggleClubExpand(club.id)
   }
 
   handleLocationChange(event) {
@@ -49,7 +26,7 @@ class ClubTimePicker extends Component {
   }
 
   render() {
-    const { clubs } = this.state
+    const { clubs } = this.props
     return (
       <React.Fragment>
         <div
@@ -59,15 +36,14 @@ class ClubTimePicker extends Component {
             marginBottom: '24px'
           }}
         />
-        <ClubExpansionList onExpand={this.onExpand} clubs={clubs} />
+        <ClubExpansionList onExpand={this.onExpandClub} clubs={clubs} />
       </React.Fragment>
     )
   }
 }
 
 ClubTimePicker.propTypes = {
-  toggleFavouriteClub: PropTypes.func.isRequired,
-  toggleLocation: PropTypes.func.isRequired
+  toggleClubExpand: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -76,5 +52,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { toggleFavouriteClub, toggleLocation }
+  { toggleClubExpand }
 )(withStyles(styles)(ClubTimePicker))
