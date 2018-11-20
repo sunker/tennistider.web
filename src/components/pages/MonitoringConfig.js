@@ -70,7 +70,7 @@ class MonitoringConfig extends React.Component {
         >
           <LinkTab label="Klubbar" />
           <LinkTab label="Tider" href="page2" />
-          <LinkTab label="Enskild bevakning" href="page3" />
+          {/* <LinkTab label="Enskild bevakning" href="page3" /> */}
         </Tabs>
         {settings.loading && (
           <React.Fragment>

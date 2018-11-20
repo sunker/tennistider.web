@@ -5,7 +5,7 @@ import { styles } from '../styles'
 import PropTypes from 'prop-types'
 import { toggleFavouriteClub } from '../actions/club'
 import { toggleLocation } from '../actions/userSettings'
-import ExpansionList from './ExpansionList'
+import ClubExpansionList from './ClubExpansionList'
 import { getFavouriteClubsWithTimeRanges } from '../selectors'
 
 class ClubTimePicker extends Component {
@@ -53,7 +53,7 @@ class ClubTimePicker extends Component {
             marginBottom: '24px'
           }}
         />
-        <ExpansionList onExpand={this.onExpand} clubs={clubs} />
+        <ClubExpansionList onExpand={this.onExpand} clubs={clubs} />
       </React.Fragment>
     )
   }

@@ -21,26 +21,22 @@ export const getClubsByLocationWithUserData = (
     target.locations.includes(c.location)
   )
 
-  const a = clubsByLocation.map(c => ({
+  return clubsByLocation.map(c => ({
     ...c,
     selected: target.clubs.some(x => x.clubId === c.id && !x.inactivated)
   }))
-  console.log(a)
-  return a
 }
 
 export const getFavouriteClubsWithTimeRanges = state => {
   const { club, settings } = state
   if (!club || club.clubs.length === 0) return []
-  const a = settings.clubs
+  return settings.clubs
     .filter(c => c.clubId !== -1 && !c.inactivated)
     .map(c => ({
       ...c,
       ...club.clubs.find(club => club.id === c.clubId),
       pickerRange: createPickerModelFromPreference(c.days)
     }))
-  // console.log(a)
-  return a
 }
 
 function slotHasSelectedLocation(slot, clubs, locations) {
@@ -50,7 +46,7 @@ function slotHasSelectedLocation(slot, clubs, locations) {
 export const filteredSlots = state => {
   const { slot, club } = state
   const filteredClubsids = slot.settings.clubs.map(c => c.clubId)
-  console.log(slot.slots)
+  // console.log(slot.slots)
   return slot.slots.filter(
     s =>
       filteredClubsids.includes(s.clubId) &&

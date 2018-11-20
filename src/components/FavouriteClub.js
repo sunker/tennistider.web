@@ -38,10 +38,12 @@ class SelectFavouriteClubs extends Component {
             marginBottom: '24px'
           }}
         >
-          <LocationPicker
-            onValueChange={this.handleLocationChange}
-            locations={this.props.locationsWithUserData}
-          />
+          {this.props.locationsWithUserData.length > 0 && (
+            <LocationPicker
+              onValueChange={this.handleLocationChange}
+              locations={this.props.locationsWithUserData}
+            />
+          )}
         </div>
         <MultiClubListPicker
           onValueChange={this.handleClubToggle}

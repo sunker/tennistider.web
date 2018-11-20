@@ -11,12 +11,14 @@ import Avatar from '@material-ui/core/Avatar'
 import Collapse from '@material-ui/core/Collapse'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
+import Edit from '@material-ui/icons/Edit'
+import { Typography } from '@material-ui/core'
 
 var divStyle = {
   width: '100%'
 }
 
-class ExpansionList extends Component {
+class ClubExpansionList extends Component {
   state = {
     clubs: []
   }
@@ -54,10 +56,32 @@ class ExpansionList extends Component {
             </ListItem>
             <Collapse in={club.expanded} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem button>
-                  <Checkbox checked={false} />
-                  <ListItemText inset primary="Mornar" />
-                </ListItem>
+                {club.pickerRange.map(timeRange => (
+                  <ListItem>
+                    <Checkbox checked={timeRange.model.active} />
+                    <ListItemText
+                      primary={timeRange.label}
+                      secondary={`${timeRange.model.startTime} - ${
+                        timeRange.model.endTime
+                      } `}
+                    />
+                    {/* <ListItemText>{`${timeRange.model.startTime} -${
+                      timeRange.model.endTime
+                    } `}</ListItemText> */}
+                    {timeRange.model.active && (
+                      <ListItemSecondaryAction
+                        style={{
+                          marginLeft: 0,
+                          alignItems: 'center',
+                          display: 'flex'
+                        }}
+                      >
+                        <Edit />
+                        <Typography>Ändra tid</Typography>
+                      </ListItemSecondaryAction>
+                    )}
+                  </ListItem>
+                ))}
               </List>
             </Collapse>
           </React.Fragment>
@@ -67,10 +91,10 @@ class ExpansionList extends Component {
   }
 }
 
-ExpansionList.propTypes = {
+ClubExpansionList.propTypes = {
   classes: PropTypes.object.isRequired,
   onExpand: PropTypes.func.isRequired,
   clubs: PropTypes.array.isRequired
 }
 
-export default withStyles(styles)(ExpansionList)
+export default withStyles(styles)(ClubExpansionList)
