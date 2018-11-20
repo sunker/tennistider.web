@@ -12,7 +12,7 @@ import {
 } from '../../actions/slotFilter'
 import { MorningPickerSettings } from '../../slotDefaults'
 import LocationPicker from '../LocationPicker'
-import MultiClubSelectPicker from '../MultiClubSelectPicker'
+import MultiClubSelectPicker from '../slot-finder/MultiClubSelectPicker'
 import DateAndTimePicker from '../DateAndTimePicker'
 import Slider from '../Slider'
 import {

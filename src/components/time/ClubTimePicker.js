@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
-import { styles } from '../styles'
+import { styles } from '../../styles'
 import PropTypes from 'prop-types'
-import { toggleFavouriteClub } from '../actions/club'
-import { toggleLocation } from '../actions/userSettings'
+import { toggleFavouriteClub } from '../../actions/club'
+import { toggleLocation } from '../../actions/userSettings'
 import ClubExpansionList from './ClubExpansionList'
-import { getFavouriteClubsWithTimeRanges } from '../selectors'
+import { getFavouriteClubsWithTimeRanges } from '../../selectors'
 
 class ClubTimePicker extends Component {
   state = {
@@ -19,14 +19,20 @@ class ClubTimePicker extends Component {
   }
 
   componentDidMount() {
-    const { clubs } = this.props
-    this.setState({ clubs: clubs.map(c => ({ ...c, expanded: false })) })
+    let { clubs } = this.props
+    clubs = clubs.map(c => ({ ...c, expanded: false }))
+    if (clubs && clubs.length > 0) {
+      clubs[0].expanded = true
+    }
+    this.setState({ clubs })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      clubs: nextProps.clubs.map(c => ({ ...c, expanded: false }))
-    })
+    const clubs = nextProps.clubs.map(c => ({ ...c, expanded: false }))
+    if (clubs && clubs.length > 0) {
+      clubs[0].expanded = true
+    }
+    this.setState({ clubs })
   }
 
   onExpand(club) {

@@ -3,7 +3,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import Badge from './SimpleBadge'
+import Badge from '../SimpleBadge'
 import _ from 'lodash'
 
 const styles = theme => ({

@@ -5,7 +5,8 @@ import {
   REMOVE_LOCATION,
   ADD_LOCATION,
   SET_LOCATIONS,
-  LOADING_INITIAL_DATA_CHANGED
+  LOADING_INITIAL_DATA_CHANGED,
+  TOGGLE_TIME_RANGE_ACTIVE
 } from '../actions/types'
 import { defaultSlotSettings } from '../slotDefaults'
 
@@ -65,6 +66,55 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: action.payload
+      }
+    case TOGGLE_TIME_RANGE_ACTIVE:
+      return {
+        ...state,
+        clubs: state.clubs.map(c => {
+          if (c.clubId !== action.payload.clubId) return c
+
+          c.days = c.days.map((d, dayIndex) => {
+            switch (action.payload.timeRangeIndex) {
+              case 0: //Mornar
+                if (dayIndex !== 0 && dayIndex !== 6) {
+                  d = d.map((r, i) => ({
+                    ...r,
+                    active: i === 0 ? !r.active : r.active
+                  }))
+                }
+                break
+              case 1: //Luncher
+                if (dayIndex !== 0 && dayIndex !== 6) {
+                  d = d.map((r, i) => ({
+                    ...r,
+                    active: i === 1 ? !r.active : r.active
+                  }))
+                }
+                break
+              case 2: //Kvällar
+                if (dayIndex !== 0 && dayIndex !== 6) {
+                  d = d.map((r, i) => ({
+                    ...r,
+                    active: i === 2 ? !r.active : r.active
+                  }))
+                }
+                break
+              case 3: //Helger
+                if (dayIndex === 0 || dayIndex === 6) {
+                  d = d.map((r, i) => ({
+                    ...r,
+                    active: i === 0 ? !r.active : r.active
+                  }))
+                }
+                break
+
+              default:
+                break
+            }
+            return d
+          })
+          return c
+        })
       }
     default:
       return state

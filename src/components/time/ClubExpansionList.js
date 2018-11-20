@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
-import { styles } from '../styles'
+import { styles } from '../../styles'
 import PropTypes from 'prop-types'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText'
-import Checkbox from '@material-ui/core/Checkbox'
 import Avatar from '@material-ui/core/Avatar'
 import Collapse from '@material-ui/core/Collapse'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import Edit from '@material-ui/icons/Edit'
-import { Typography } from '@material-ui/core'
+import TimeRanges from './TimeRanges'
 
 var divStyle = {
   width: '100%'
@@ -56,32 +53,7 @@ class ClubExpansionList extends Component {
             </ListItem>
             <Collapse in={club.expanded} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                {club.pickerRange.map(timeRange => (
-                  <ListItem>
-                    <Checkbox checked={timeRange.model.active} />
-                    <ListItemText
-                      primary={timeRange.label}
-                      secondary={`${timeRange.model.startTime} - ${
-                        timeRange.model.endTime
-                      } `}
-                    />
-                    {/* <ListItemText>{`${timeRange.model.startTime} -${ 
-                      timeRange.model.endTime
-                    } `}</ListItemText> */}
-                    {timeRange.model.active && (
-                      <ListItemSecondaryAction
-                        style={{
-                          marginLeft: 0,
-                          alignItems: 'center',
-                          display: 'flex'
-                        }}
-                      >
-                        <Edit />
-                        <Typography>Ändra tid</Typography>
-                      </ListItemSecondaryAction>
-                    )}
-                  </ListItem>
-                ))}
+                <TimeRanges clubId={club.clubId} />
               </List>
             </Collapse>
           </React.Fragment>

@@ -11,8 +11,8 @@ export const DefaultMorningSlot = {
 }
 
 export const DefaultLunchSlot = {
-  startTime: 7,
-  endTime: 9,
+  startTime: 11,
+  endTime: 13,
   active: false
 }
 

@@ -3,11 +3,11 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import _ from 'lodash'
 import Divider from '@material-ui/core/Divider'
 import withStyles from '@material-ui/core/styles/withStyles'
-import { styles } from '../styles'
+import { styles } from '../../styles'
 import PropTypes from 'prop-types'
 import List from '@material-ui/core/List'
 import DaySlotsPerClub from './DaySlotsPerClub'
-import { prettyDate } from '../dateUtils'
+import { prettyDate } from '../../dateUtils'
 
 var divStyle = {
   width: '100%'

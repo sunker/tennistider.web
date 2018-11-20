@@ -1,10 +1,10 @@
-import uniq from 'lodash.uniq'
+import _ from 'lodash'
 import { createPickerModelFromPreference } from './slotDefaults'
 
 export const getLocationsWithUserData = (state, filterSettings = false) => {
   const { club, settings, slot } = state
   const target = filterSettings ? slot.settings : settings
-  const locations = uniq(club.clubs.map(c => c.location))
+  const locations = _.uniq(club.clubs.map(c => c.location))
   return locations.map(l => ({
     name: l,
     selected: target.locations.includes(l)
@@ -21,10 +21,14 @@ export const getClubsByLocationWithUserData = (
     target.locations.includes(c.location)
   )
 
-  return clubsByLocation.map(c => ({
-    ...c,
-    selected: target.clubs.some(x => x.clubId === c.id && !x.inactivated)
-  }))
+  return _.orderBy(
+    clubsByLocation.map(c => ({
+      ...c,
+      selected: target.clubs.some(x => x.clubId === c.id && !x.inactivated)
+    })),
+    c => c.selected,
+    'desc'
+  )
 }
 
 export const getFavouriteClubsWithTimeRanges = state => {
@@ -37,6 +41,11 @@ export const getFavouriteClubsWithTimeRanges = state => {
       ...club.clubs.find(club => club.id === c.clubId),
       pickerRange: createPickerModelFromPreference(c.days)
     }))
+}
+
+export const getClubTimeRanges = (state, clubId) => {
+  const club = state.settings.clubs.find(c => c.clubId === clubId)
+  return createPickerModelFromPreference(club.days)
 }
 
 function slotHasSelectedLocation(slot, clubs, locations) {

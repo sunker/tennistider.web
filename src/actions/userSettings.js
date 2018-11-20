@@ -1,5 +1,9 @@
 import axios from 'axios'
-import { SET_LOCATIONS, RECEIVE_SETTINGS } from './types'
+import {
+  SET_LOCATIONS,
+  RECEIVE_SETTINGS,
+  TOGGLE_TIME_RANGE_ACTIVE
+} from './types'
 
 export const toggleLocation = locations => dispatch => {
   dispatch({
@@ -14,5 +18,15 @@ export const saveFavouriteClubs = () => async (dispatch, getStore) => {
   dispatch({
     type: RECEIVE_SETTINGS,
     payload: { locations, clubs: data }
+  })
+}
+
+export const toggleTimeRangeActive = (clubId, timeRangeIndex) => async (
+  dispatch,
+  getStore
+) => {
+  dispatch({
+    type: TOGGLE_TIME_RANGE_ACTIVE,
+    payload: { clubId, timeRangeIndex }
   })
 }

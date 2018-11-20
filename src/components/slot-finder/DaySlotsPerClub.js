@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import withStyles from '@material-ui/core/styles/withStyles'
-import { styles } from '../styles'
+import { styles } from '../../styles'
 import PropTypes from 'prop-types'
 import ListItem from '@material-ui/core/ListItem'
 import SlotsPerClubAndDay from './SlotsPerClubAndDay'

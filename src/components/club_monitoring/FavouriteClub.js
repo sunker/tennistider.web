@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
-import { styles } from '../styles'
+import { styles } from '../../styles'
 import PropTypes from 'prop-types'
-import { toggleFavouriteClub } from '../actions/club'
-import { toggleLocation } from '../actions/userSettings'
-import LocationPicker from './LocationPicker'
+import { toggleFavouriteClub } from '../../actions/club'
+import { toggleLocation } from '../../actions/userSettings'
+import LocationPicker from '../LocationPicker'
 import MultiClubListPicker from './MultiClubListPicker'
 import {
   getClubsByLocationWithUserData,
   getLocationsWithUserData
-} from '../selectors'
+} from '../../selectors'
 
 class SelectFavouriteClubs extends Component {
   constructor() {
