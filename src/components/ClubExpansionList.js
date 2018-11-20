@@ -65,7 +65,7 @@ class ClubExpansionList extends Component {
                         timeRange.model.endTime
                       } `}
                     />
-                    {/* <ListItemText>{`${timeRange.model.startTime} -${
+                    {/* <ListItemText>{`${timeRange.model.startTime} -${ 
                       timeRange.model.endTime
                     } `}</ListItemText> */}
                     {timeRange.model.active && (
