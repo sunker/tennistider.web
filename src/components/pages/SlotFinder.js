@@ -39,7 +39,7 @@ class SlotFinder extends Component {
   }
 
   render() {
-    const { classes, slots } = this.props
+    const { classes, slots, settings } = this.props
     return (
       <Paper className={classes.paper}>
         <ExpansionPanel
@@ -63,7 +63,7 @@ class SlotFinder extends Component {
           onClose={this.handleClose}
         /> */}
         <p>{slots.length} tider matchade dina val</p>
-        {slots.length === 0 && (
+        {settings.loading && (
           <React.Fragment>
             <CircularProgress />
             <p>Hämtar tider...</p>
@@ -84,6 +84,7 @@ SlotFinder.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  settings: state.settings,
   slots: filteredSlots(state)
 })
 

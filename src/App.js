@@ -13,8 +13,9 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Navbar from './components/Navbar'
 import Register from './components/Register'
 import Login from './components/Login'
-import FavouriteClub from './components/pages/FavouriteClub'
+import FavouriteClub from './components/FavouriteClub'
 import SlotFinder from './components/pages/SlotFinder'
+import MonitoringConfig from './components/pages/MonitoringConfig'
 import Home from './components/Home'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -48,8 +49,6 @@ if (localStorage.jwtToken) {
 
 class App extends Component {
   render() {
-    // let state = store.getState()
-    // let loading = state.settings.loading
     return (
       <Provider store={store}>
         <Router>
@@ -59,16 +58,6 @@ class App extends Component {
               <main className={this.props.classes.layout}>
                 <div>
                   <div className="container">
-                    {/* {this.props.settings.loading ? (
-                      <CircularProgress
-                        style={{
-                          display: 'block',
-                          marginLeft: 'auto',
-                          marginRight: 'auto'
-                        }}
-                        color="secondary"
-                      />
-                    ) : ( */}
                     <React.Fragment>
                       <Route exact path="/" component={Home} />
                       <Route
@@ -81,8 +70,8 @@ class App extends Component {
                         path="/hitta-ledig-tid"
                         component={SlotFinder}
                       />
+                      <Route exact path="/test" component={MonitoringConfig} />
                     </React.Fragment>
-                    {/* )} */}
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
 
@@ -98,17 +87,4 @@ class App extends Component {
   }
 }
 
-// App.propTypes = {
-//   settings: PropTypes.object.isRequired
-// }
-
-// const mapStateToProps = state => ({
-//   auth: state.auth,
-//   settings: state.settings
-// })
-
-// export default connect(
-//   mapStateToProps,
-//   {}
-// )(withStyles(styles)(App))
 export default withStyles(styles)(App)

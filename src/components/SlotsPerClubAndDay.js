@@ -56,7 +56,11 @@ class SlotsPerClubAndDay extends Component {
               </sup>
 
               {groups[s].length > 1 && (
-                <Badge badgeContent={groups[s].length} color="primary" />
+                <Badge
+                  badgeContent={groups[s].length}
+                  color="primary"
+                  className={'slot-badge'}
+                />
               )}
             </Paper>
           </Grid>

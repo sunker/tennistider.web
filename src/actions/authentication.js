@@ -104,10 +104,10 @@ export const setCurrentUser = decoded => dispatch => {
     payload: jwt
   })
 
-  dispatch({
-    type: RECEIVE_SETTINGS,
-    payload: { locations, clubs }
-  })
+  // dispatch({
+  //   type: RECEIVE_SETTINGS,
+  //   payload: { locations, clubs }
+  // })
 }
 
 export const logoutUser = history => dispatch => {

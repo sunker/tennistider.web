@@ -27,6 +27,11 @@ class Home extends Component {
             Hitta ledig tid
           </Button>
         </Link>
+        <Link className="nav-link" to="/test?tab=klubbar">
+          <Button type="submit" fullWidth variant="contained" color="primary">
+            Hitta ledig tid
+          </Button>
+        </Link>
       </Paper>
     )
   }

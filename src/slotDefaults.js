@@ -59,3 +59,38 @@ export const WeekendPickerSettings = {
   step: 0.5,
   label: 'Helger'
 }
+
+export const PickerRange = [
+  MorningPickerSettings,
+  LunchPickerSettings,
+  NightPickerSettings,
+  WeekendPickerSettings
+]
+
+export const createPickerModelFromPreference = (
+  dayPreference = defaultSlotSettings
+) => {
+  const a = PickerRange.map((p, i) => {
+    let model
+    switch (p.label) {
+      case 'Mornar':
+        model = dayPreference[1][0]
+        break
+      case 'Luncher':
+        model = dayPreference[1][1]
+        break
+      case 'Kvällar':
+        model = dayPreference[1][2]
+        break
+      case 'Helger':
+        model = dayPreference[0][0]
+        break
+      default:
+        break
+    }
+    return { ...p, model }
+  })
+
+  console.log(a)
+  return a
+}
