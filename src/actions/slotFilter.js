@@ -5,7 +5,8 @@ import {
   RECEIVE_SLOTS,
   SET_START_DATE_AND_TIME,
   SET_END_DATE_AND_TIME,
-  SET_TIME_FILTER
+  SET_TIME_RANGE_FILTER,
+  TOGGLE_TIME_RANGE_FILTER_ACTIVE
 } from './types'
 
 export const setFilterLocations = locations => dispatch => {
@@ -60,9 +61,16 @@ export const setEndDateAndTime = value => dispatch => {
   })
 }
 
-export const setTimeFilter = (index, [startTime, endTime]) => dispatch => {
+export const toggleTimeFilterActive = index => dispatch => {
   dispatch({
-    type: SET_TIME_FILTER,
+    type: TOGGLE_TIME_RANGE_FILTER_ACTIVE,
+    payload: { index }
+  })
+}
+
+export const setTimeRangeFilter = (index, startTime, endTime) => dispatch => {
+  dispatch({
+    type: SET_TIME_RANGE_FILTER,
     payload: { index, value: { startTime, endTime, active: true } }
   })
 }

@@ -27,15 +27,6 @@
   font-size: large;
 }
 
-.rc-slider-track {
-  /* background-color: #4CAF50 !important; */
-  border: solid 2px #ffa266 !important;
-}
-
-.rc-slider-handle:hover {
-  border: solid 2px #ffa266 !important;
-}
-
 span[class*='MuiBadge-badge-'] {
   top: -30px; 
   right: -17px

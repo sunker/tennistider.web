@@ -8,13 +8,13 @@ import {
   setFilterLocations,
   setStartDateAndTime,
   setEndDateAndTime,
-  setTimeFilter
+  setTimeRangeFilter,
+  toggleTimeFilterActive
 } from '../../actions/slotFilter'
-import { MorningPickerSettings } from '../../slotDefaults'
 import LocationPicker from '../LocationPicker'
 import MultiClubSelectPicker from '../slot-finder/MultiClubSelectPicker'
 import DateAndTimePicker from '../DateAndTimePicker'
-import Slider from '../Slider'
+import TimeRangesPicker from '../time/TimeRangesPicker'
 import {
   getClubsByLocationWithUserData,
   getLocationsWithUserData
@@ -30,6 +30,16 @@ class ClubFilter extends Component {
     )
     this.handleEndDateAndTimeChange = this.handleEndDateAndTimeChange.bind(this)
     this.handleTimeChange = this.handleTimeChange.bind(this)
+    this.handleRangeChange = this.handleRangeChange.bind(this)
+    this.handleToggleRangeActive = this.handleToggleRangeActive.bind(this)
+  }
+
+  handleToggleRangeActive(timeRangeIndex) {
+    this.props.toggleTimeFilterActive(timeRangeIndex)
+  }
+
+  handleRangeChange([startTime, endTime], index) {
+    this.props.setTimeRangeFilter(index, startTime, endTime)
   }
 
   handleClubFilterToggle(event) {
@@ -61,6 +71,7 @@ class ClubFilter extends Component {
     return (
       <div
         style={{
+          marginTop: '24px',
           marginBottom: '24px',
           display: 'flex',
           flexDirection: 'column'
@@ -84,20 +95,15 @@ class ClubFilter extends Component {
           label={'Slutdatum'}
           value={this.formatDateAndTime(settings.endDate)}
         />
-        <Slider
-          model={{ ...settings.timeRanges[0], index: 0 }}
-          picker={MorningPickerSettings}
-          onValueChange={this.handleTimeChange}
+
+        <TimeRangesPicker
+          onRangeValueChange={this.handleRangeChange}
+          onRangeActiveChange={this.handleToggleRangeActive}
+          timeRanges={settings.timeRanges}
         />
       </div>
     )
   }
-}
-
-ClubFilter.propTypes = {
-  setFilterClubs: PropTypes.func.isRequired,
-  setFilterLocations: PropTypes.func.isRequired,
-  setTimeFilter: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -113,6 +119,7 @@ export default connect(
     setFilterLocations,
     setStartDateAndTime,
     setEndDateAndTime,
-    setTimeFilter
+    setTimeRangeFilter,
+    toggleTimeFilterActive
   }
 )(withStyles(styles)(ClubFilter))

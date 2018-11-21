@@ -57,8 +57,8 @@ class SlotFinder extends Component {
         <Collapse in={open} style={{ width: '100%' }}>
           <ClubFilter />
         </Collapse>
-        <Typography style={{ display: 'block' }} align="left">
-          {slots.length} tider hittades
+        <Typography style={{ marginTop: 24 }} align="left">
+          {!settings.loading && `${slots.length} tider hittades`}
         </Typography>
         {settings.loading && (
           <React.Fragment>

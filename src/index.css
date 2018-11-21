@@ -6,23 +6,52 @@ body {
   background: #76b852;
   background: -webkit-linear-gradient(right, #76b852, #8DC26F);
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
-  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #0e1c06, #8DC26F);
   background: linear-gradient(to left, #76b852, #8DC26F);
 }
 
-.App-layout-1 {
-  /* margin-left: 6px !important;
-  margin-right: 6px !important; */
+.form-item {
+  margin-bottom: 24px !important;
 }
 
-.rc-slider-track { 
-  /* background-color: #4CAF50 !important; */
-  background-color: #ffa266 !important;
+.rc-slider > .rc-slider-track { 
+  background-color: #ffa266;
   border: solid 2px #ffa266 !important;
+}
+
+.rc-slider.disabled { 
+  opacity: 0.25;
+}
+
+.rc-slider-handle {
+  border: solid 2px #ffa266 !important;
+}
+
+.rc-slider-disabled {
+  background-color: transparent !important;
 }
 
 .rc-slider-handle:hover {
   border: solid 2px #ffa266 !important;
+}
+
+.rc-slider-handle:focus {
+  border: solid 2px #ffa266 !important;
+}
+
+.rc-slider-handle:focus {
+  border-color: #ffa266 !important;
+  box-shadow: 0 0 0 5px #ffa266 !important;
+}
+.rc-slider-handle-click-focused:focus {
+  border-color: #ffa266 !important;
+}
+.rc-slider-handle:hover {
+  border-color: #ffa266 !important;
+}
+.rc-slider-handle:active {
+  border-color: #ffa266 !important;
+  box-shadow: 0 0 5px #ffa266 !important;
 }
 
 .slot-badge span {

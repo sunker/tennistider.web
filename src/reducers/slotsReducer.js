@@ -5,14 +5,10 @@ import {
   SET_FILTERED_CLUBS,
   SET_START_DATE_AND_TIME,
   SET_END_DATE_AND_TIME,
-  SET_TIME_FILTER
+  SET_TIME_RANGE_FILTER,
+  TOGGLE_TIME_RANGE_FILTER_ACTIVE
 } from '../actions/types'
-import {
-  DefaultNightSlot,
-  DefaultLunchSlot,
-  DefaultMorningSlot,
-  DefaultWeekendSlot
-} from '../slotDefaults'
+import { DefaultTimeRangePickers } from '../slotDefaults'
 
 const initialState = {
   slots: [],
@@ -21,12 +17,7 @@ const initialState = {
     locations: [],
     startDate: new Date(),
     endDate: new Date(new Date().setDate(new Date().getDate() + 14)),
-    timeRanges: [
-      { ...DefaultMorningSlot, active: true },
-      { ...DefaultLunchSlot, active: true },
-      { ...DefaultNightSlot, active: true },
-      { ...DefaultWeekendSlot, active: true }
-    ]
+    timeRanges: DefaultTimeRangePickers
   }
 }
 
@@ -77,7 +68,7 @@ export default function(state = initialState, action) {
           endDate: action.payload
         }
       }
-    case SET_TIME_FILTER:
+    case SET_TIME_RANGE_FILTER:
       return {
         ...state,
         settings: {
@@ -87,7 +78,30 @@ export default function(state = initialState, action) {
               return r
             }
             return {
-              ...action.payload.value
+              ...r,
+              model: {
+                ...r.model,
+                ...action.payload.value
+              }
+            }
+          })
+        }
+      }
+    case TOGGLE_TIME_RANGE_FILTER_ACTIVE:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          timeRanges: state.settings.timeRanges.map((r, i) => {
+            if (i !== action.payload.index) {
+              return r
+            }
+            return {
+              ...r,
+              model: {
+                ...r.model,
+                active: !r.model.active
+              }
             }
           })
         }

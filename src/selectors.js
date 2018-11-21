@@ -43,8 +43,8 @@ export const getFavouriteClubsWithTimeRanges = state => {
     }))
 }
 
-export const getClubTimeRanges = (state, clubId) => {
-  const club = state.settings.clubs.find(c => c.clubId === clubId)
+export const getClubTimeRanges = (settings, clubId) => {
+  const club = settings.clubs.find(c => c.clubId === clubId)
   return createPickerModelFromPreference(club.days)
 }
 
@@ -52,15 +52,29 @@ function slotHasSelectedLocation(slot, clubs, locations) {
   return locations.includes(clubs.find(c => c.id === slot.clubId).location)
 }
 
+const inRange = (slot, rangeModel) =>
+  rangeModel.startTime <= slot.startTime &&
+  rangeModel.endTime > slot.startTime &&
+  rangeModel.active
+
+const startTimeIsWithinRanges = (slot, [morning, lunch, night, weekend]) => {
+  const day = new Date(slot.date).getDay()
+  if (day == 0 || day === 6) {
+    return inRange(slot, weekend.model)
+  } else {
+    return [morning, lunch, night].some(r => inRange(slot, r.model))
+  }
+}
+
 export const filteredSlots = state => {
   const { slot, club } = state
   const filteredClubsids = slot.settings.clubs.map(c => c.clubId)
-  // console.log(slot.slots)
   return slot.slots.filter(
     s =>
       filteredClubsids.includes(s.clubId) &&
       slotHasSelectedLocation(s, club.clubs, slot.settings.locations) &&
       s.date.getTime() >= slot.settings.startDate.getTime() &&
-      s.date.getTime() <= slot.settings.endDate.getTime()
+      s.date.getTime() <= slot.settings.endDate.getTime() &&
+      startTimeIsWithinRanges(s, slot.settings.timeRanges)
   )
 }

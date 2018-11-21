@@ -25,7 +25,7 @@ class LocationPicker extends Component {
   render() {
     const { locations } = this.props
     return (
-      <FormControl>
+      <FormControl className={'form-item'}>
         <InputLabel htmlFor="select-multiple-locations">Städer</InputLabel>
         <Select
           multiple

@@ -27,7 +27,7 @@ class MultiClubSelectPicker extends Component {
   render() {
     const { clubs } = this.props
     return (
-      <FormControl>
+      <FormControl className={'form-item'}>
         <InputLabel htmlFor="select-multiple-clubs">Klubbar</InputLabel>
         <Select
           style={{ maxWidth: '100%' }}

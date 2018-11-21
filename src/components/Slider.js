@@ -2,11 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Slider from 'rc-slider'
+import { Typography } from '@material-ui/core'
 import 'rc-slider/assets/index.css'
-import 'rc-tooltip/assets/bootstrap.css'
 
-const createSliderWithTooltip = Slider.createSliderWithTooltip
-const Range = createSliderWithTooltip(Slider.Range)
+const Range = Slider.Range
 
 const styles = {
   root: {
@@ -19,35 +18,31 @@ const styles = {
 
 class StepSlider extends React.Component {
   render() {
-    const { classes, picker, model, onValueChange } = this.props
-    const { startTime, endTime, active, index } = model
-    const { min, max, step, label } = picker
-    const style = {
-      backgroundColor: '#f6f6f6',
-      color: '#f6f6f6',
-      border: '#ffa266',
-      boxShadow: '#ffa266'
-    }
+    const { classes, picker, model, onValueChange, label } = this.props
+    const { startTime, endTime, index } = model
+    const { min, max, step } = picker
+
     return (
       <div style={{ width: '100%', marginLeft: 24 }}>
+        <Typography
+          className={'slider-label'}
+          style={{
+            paddingBottom: 6,
+            textAlign: 'right',
+            color: model.active ? 'rgba(0, 0, 0, 0.87)' : '#D3D3D3'
+          }}
+        >
+          {label}
+        </Typography>
         <Range
           classes={{ container: classes.slider }}
-          defaultValue={[startTime, endTime]}
+          className={`${!model.active ? 'disabled' : ''}`}
+          defaultValue={[startTime || min, endTime || max] || []}
           min={min}
           max={max}
           step={step}
-          railStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.54);' }}
-          handleStyle={{
-            backgroundColor: '#f6f6f6',
-            borderColor: '#ffa266'
-          }}
-          maximumTrackStyle={style}
-          dotStyle={{
-            backgroundColor: '#f6f6f6',
-            borderColor: '#ffa266'
-          }}
+          disabled={model.active ? false : true}
           onChange={value => onValueChange(value, index)}
-          tipFormatter={value => `${value}`}
         />
       </div>
     )
@@ -59,7 +54,8 @@ StepSlider.propTypes = {
   value: PropTypes.array.isRequired,
   active: PropTypes.bool.isRequired,
   onValueChange: PropTypes.func.isRequired,
-  picker: PropTypes.object.isRequired
+  picker: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired
 }
 
 export default withStyles(styles)(StepSlider)

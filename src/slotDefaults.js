@@ -1,6 +1,6 @@
 export const DefaultWeekendSlot = {
-  startTime: 8,
-  endTime: 21,
+  startTime: 11,
+  endTime: 18,
   active: true
 }
 
@@ -18,7 +18,7 @@ export const DefaultLunchSlot = {
 
 export const DefaultNightSlot = {
   startTime: 17,
-  endTime: 21,
+  endTime: 20,
   active: true
 }
 
@@ -34,13 +34,13 @@ export const defaultSlotSettings = [
 
 export const MorningPickerSettings = {
   min: 6,
-  max: 11,
+  max: 10,
   step: 0.5,
   label: 'Mornar'
 }
 
 export const LunchPickerSettings = {
-  min: 11,
+  min: 10,
   max: 15,
   step: 0.5,
   label: 'Luncher'
@@ -65,6 +65,25 @@ export const PickerRange = [
   LunchPickerSettings,
   NightPickerSettings,
   WeekendPickerSettings
+]
+
+export const DefaultTimeRangePickers = [
+  { model: { ...DefaultMorningSlot, active: true }, ...MorningPickerSettings },
+  {
+    model: { ...DefaultLunchSlot, active: true },
+    ...LunchPickerSettings,
+    active: true
+  },
+  {
+    model: { ...DefaultNightSlot, active: true },
+    ...NightPickerSettings,
+    active: true
+  },
+  {
+    model: { ...DefaultWeekendSlot, active: true },
+    ...WeekendPickerSettings,
+    active: true
+  }
 ]
 
 export const createPickerModelFromPreference = (

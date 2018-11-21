@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from '../../styles'
 import PropTypes from 'prop-types'
@@ -9,7 +10,9 @@ import Avatar from '@material-ui/core/Avatar'
 import Collapse from '@material-ui/core/Collapse'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import TimeRanges from './TimeRanges'
+import TimeRangesPicker from './TimeRangesPicker'
+import { getClubTimeRanges } from '../../selectors'
+import { toggleTimeRangeActive, setTimeRange } from '../../actions/userSettings'
 
 var divStyle = {
   width: '100%'
@@ -19,14 +22,22 @@ class ClubExpansionList extends Component {
   state = {
     clubs: []
   }
-  constructor(props) {
+  constructor() {
     super()
+    this.handleRangeChange = this.handleRangeChange.bind(this)
+    this.handleToggleRangeActive = this.handleToggleRangeActive.bind(this)
   }
 
-  handleClick = club => {}
+  handleToggleRangeActive(timeRangeIndex, clubId) {
+    this.props.toggleTimeRangeActive(clubId, timeRangeIndex)
+  }
+
+  handleRangeChange([startTime, endTime], index, clubId) {
+    this.props.setTimeRange(clubId, index, [startTime, endTime])
+  }
 
   render() {
-    let { clubs, onExpand } = this.props
+    let { clubs, onExpand, settings } = this.props
     return (
       <List style={divStyle}>
         {clubs.map(club => (
@@ -43,7 +54,12 @@ class ClubExpansionList extends Component {
             </ListItem>
             <Collapse in={club.expanded} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <TimeRanges clubId={club.clubId} />
+                <TimeRangesPicker
+                  onRangeValueChange={this.handleRangeChange}
+                  onRangeActiveChange={this.handleToggleRangeActive}
+                  timeRanges={getClubTimeRanges(settings, club.clubId)}
+                  clubId={club.clubId}
+                />
               </List>
             </Collapse>
           </React.Fragment>
@@ -59,4 +75,11 @@ ClubExpansionList.propTypes = {
   clubs: PropTypes.array.isRequired
 }
 
-export default withStyles(styles)(ClubExpansionList)
+const mapStateToProps = (state, props) => ({
+  settings: state.settings
+})
+
+export default connect(
+  mapStateToProps,
+  { toggleTimeRangeActive, setTimeRange }
+)(withStyles(styles)(ClubExpansionList))
