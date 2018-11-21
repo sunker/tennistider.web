@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { loginUser } from '../actions/authentication'
 import classnames from 'classnames'
-
+import { Link } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import FormControl from '@material-ui/core/FormControl'
@@ -110,11 +110,14 @@ class Login extends Component {
             type="submit"
             fullWidth
             variant="contained"
-            color="secondary"
+            color="primary"
             className={classes.submit}
           >
             Logga in
           </Button>
+          <Typography style={{marginTop: 12}} align="center">Inget konto? Klicka <Link style={{color: 'rgba(0, 0, 0, 0.87)'}} className="nav-link" to="/skapa-konto">
+            här
+          </Link> för att registrera dig</Typography>
         </form>
       </Paper>
     )

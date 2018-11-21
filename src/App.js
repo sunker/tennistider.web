@@ -13,7 +13,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Navbar from './components/Navbar'
 import Register from './components/Register'
 import Login from './components/Login'
-import FavouriteClub from './components/club_monitoring/FavouriteClub'
+import FavouriteClub from './components/club-monitoring/FavouriteClub'
 import SlotFinder from './components/pages/SlotFinder'
 import MonitoringConfig from './components/pages/MonitoringConfig'
 import Home from './components/Home'
@@ -58,22 +58,18 @@ class App extends Component {
               <main className={this.props.classes.layout}>
                 <div>
                   <div className="container">
+                    {/* <h1>TennisTider</h1> */}
                     <React.Fragment>
                       <Route exact path="/" component={Home} />
                       <Route
                         exact
-                        path="/valj-klubbar"
-                        component={FavouriteClub}
-                      />
-                      <Route
-                        exact
-                        path="/hitta-ledig-tid"
+                        path="/hitta-tider"
                         component={SlotFinder}
                       />
-                      <Route exact path="/test" component={MonitoringConfig} />
+                      <Route exact path="/bevakningar" component={MonitoringConfig} />
                     </React.Fragment>
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/skapa-konto" component={Register} />
+                    <Route exact path="/logga-in" component={Login} />
 
                     <Navbar />
                   </div>

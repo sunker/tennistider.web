@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 class Home extends Component {
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
-      this.props.history.push('/login')
+      this.props.history.push('/logga-in')
     }
   }
   render() {

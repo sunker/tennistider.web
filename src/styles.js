@@ -2,8 +2,8 @@ export const styles = theme => ({
   layout: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 0.5,
-    marginRight: theme.spacing.unit * 0.5,
+    marginLeft: theme.spacing.unit * 1,
+    marginRight: theme.spacing.unit * 1,
     [theme.breakpoints.up(420 + theme.spacing.unit * 3 * 2)]: {
       width: 420,
       marginLeft: 'auto',
@@ -11,7 +11,7 @@ export const styles = theme => ({
     }
   },
   paper: {
-    marginTop: theme.spacing.unit * 8,
+    marginTop: theme.spacing.unit * 2,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

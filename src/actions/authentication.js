@@ -6,8 +6,7 @@ import {
   LOADING_INITIAL_DATA_CHANGED,
   SET_CLUBS,
   INIT_SLOT_FILTER_SETTINGS,
-  RECEIVE_SLOTS,
-  LOGOUT
+  RECEIVE_SLOTS
 } from './types'
 import setAuthToken from '../setAuthToken'
 import jwt_decode from 'jwt-decode'
@@ -15,7 +14,7 @@ import jwt_decode from 'jwt-decode'
 export const registerUser = (user, history) => dispatch => {
   axios
     .post('/api/users/register', user)
-    .then(res => history.push('/login'))
+    .then(res => history.push('/logga-in'))
     .catch(err => {
       dispatch({
         type: GET_ERRORS,
@@ -134,5 +133,5 @@ export const logoutUser = history => dispatch => {
     type: RECEIVE_SLOTS,
     payload: []
   })
-  history.push('/login')
+  history.push('/logga-in')
 }

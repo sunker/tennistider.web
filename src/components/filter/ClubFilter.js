@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from '../../styles'
-import PropTypes from 'prop-types'
 import {
   setFilterClubs,
   setFilterLocations,

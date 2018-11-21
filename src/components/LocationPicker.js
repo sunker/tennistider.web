@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import Input from '@material-ui/core/Input'
 import Chip from '@material-ui/core/Chip'
 import FormControl from '@material-ui/core/FormControl'
@@ -62,7 +61,4 @@ LocationPicker.propTypes = {
   locations: PropTypes.array.isRequired
 }
 
-export default connect(
-  null,
-  {}
-)(LocationPicker)
+export default LocationPicker

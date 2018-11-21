@@ -59,7 +59,7 @@ const inRange = (slot, rangeModel) =>
 
 const startTimeIsWithinRanges = (slot, [morning, lunch, night, weekend]) => {
   const day = new Date(slot.date).getDay()
-  if (day == 0 || day === 6) {
+  if (day === 0 || day === 6) {
     return inRange(slot, weekend.model)
   } else {
     return [morning, lunch, night].some(r => inRange(slot, r.model))

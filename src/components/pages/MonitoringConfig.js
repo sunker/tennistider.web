@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab'
 import Paper from '@material-ui/core/Paper'
 import { styles } from '../../styles'
 import { saveFavouriteClubs } from '../../actions/userSettings'
-import FavouriteClub from '../club_monitoring/FavouriteClub'
+import FavouriteClub from '../club-monitoring/FavouriteClub'
 import ClubTimePicker from '../time/ClubTimePicker'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -36,7 +36,7 @@ class MonitoringConfig extends React.Component {
 
   async componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
-      this.props.history.push('/login')
+      this.props.history.push('/logga-in')
     }
 
     const tab =
