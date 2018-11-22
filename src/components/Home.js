@@ -22,12 +22,12 @@ class Home extends Component {
             Välj favoritklubbar
           </Button>
         </Link>
-        <Link className="nav-link" to="/hitta-ledig-tid">
+        <Link className="nav-link" to="/hitta-tider">
           <Button type="submit" fullWidth variant="contained" color="primary">
             Hitta ledig tid
           </Button>
         </Link>
-        <Link className="nav-link" to="/test?tab=klubbar">
+        <Link className="nav-link" to="/bevakningar?tab=klubbar">
           <Button type="submit" fullWidth variant="contained" color="primary">
             Hitta ledig tid
           </Button>

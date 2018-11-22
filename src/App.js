@@ -20,9 +20,10 @@ import Home from './components/Home'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from './styles'
+// import { createTypography } from '@material-ui/core/styles'
 import { createMuiTheme } from '@material-ui/core/styles'
-const muiTheme = createMuiTheme({
-  palette: {
+const muiTheme = () => {
+  const palette = {
     primary: {
       main: '#4CAF50',
       contrastText: '#FFF'
@@ -32,7 +33,12 @@ const muiTheme = createMuiTheme({
       contrastText: '#FFF'
     }
   }
-})
+  const typography = {
+    fontFamily: '"Roboto"'
+  }
+
+  return createMuiTheme({ palette, typography })
+}
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken)
@@ -61,12 +67,12 @@ class App extends Component {
                     {/* <h1>TennisTider</h1> */}
                     <React.Fragment>
                       <Route exact path="/" component={Home} />
+                      <Route exact path="/hitta-tider" component={SlotFinder} />
                       <Route
                         exact
-                        path="/hitta-tider"
-                        component={SlotFinder}
+                        path="/bevakningar"
+                        component={MonitoringConfig}
                       />
-                      <Route exact path="/bevakningar" component={MonitoringConfig} />
                     </React.Fragment>
                     <Route exact path="/skapa-konto" component={Register} />
                     <Route exact path="/logga-in" component={Login} />
