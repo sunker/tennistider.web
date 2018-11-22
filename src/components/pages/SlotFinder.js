@@ -62,7 +62,7 @@ class SlotFinder extends Component {
         </Typography>
         {settings.loading && (
           <React.Fragment>
-            <CircularProgress />
+            <CircularProgress color="secondary" />
             <p>Hämtar tider...</p>
           </React.Fragment>
         )}

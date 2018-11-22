@@ -74,7 +74,7 @@ class MonitoringConfig extends React.Component {
         </Tabs>
         {settings.loading && (
           <React.Fragment>
-            <CircularProgress style={{ marginTop: 48 }} />
+            <CircularProgress color="secondary" style={{ marginTop: 48 }} />
             <p>Hämtar inställningar...</p>
           </React.Fragment>
         )}
