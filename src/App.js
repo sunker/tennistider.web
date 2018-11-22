@@ -10,17 +10,14 @@ import {
   loadInitialData
 } from './actions/authentication'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Navbar from './components/Navbar'
 import Register from './components/Register'
 import Login from './components/Login'
-import FavouriteClub from './components/club-monitoring/FavouriteClub'
 import SlotFinder from './components/pages/SlotFinder'
 import MonitoringConfig from './components/pages/MonitoringConfig'
 import Home from './components/Home'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from './styles'
-// import { createTypography } from '@material-ui/core/styles'
 import { createMuiTheme } from '@material-ui/core/styles'
 const muiTheme = () => {
   const palette = {
@@ -76,8 +73,6 @@ class App extends Component {
                     </React.Fragment>
                     <Route exact path="/skapa-konto" component={Register} />
                     <Route exact path="/logga-in" component={Login} />
-
-                    <Navbar />
                   </div>
                 </div>
               </main>

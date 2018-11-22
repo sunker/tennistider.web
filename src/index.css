@@ -12,9 +12,9 @@ body {
   background: linear-gradient(to left, #76b852, #8DC26F);
 }
 
-h1 {
+/* h1 {
   color: #fff;
-}
+} */
 
 .form-item {
   margin-bottom: 24px !important;

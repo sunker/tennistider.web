@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Paper from '@material-ui/core/Paper'
-import { loadSlots } from '../../actions/slotFilter'
 import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { styles } from '../../styles'
@@ -75,8 +74,7 @@ class SlotFinder extends Component {
 SlotFinder.propTypes = {
   classes: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  slots: PropTypes.array.isRequired,
-  loadSlots: PropTypes.func.isRequired
+  slots: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -87,5 +85,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loadSlots }
+  {}
 )(withStyles(styles)(SlotFinder))
