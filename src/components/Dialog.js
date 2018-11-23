@@ -19,7 +19,6 @@ import DialogActions from '@material-ui/core/DialogActions'
 import blue from '@material-ui/core/colors/blue'
 import { DialogContent } from '@material-ui/core'
 
-const emails = ['username@gmail.com', 'user02@gmail.com']
 const styles = {
   avatar: {
     backgroundColor: blue[100],
