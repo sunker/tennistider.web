@@ -59,15 +59,11 @@ class SlotDialog extends React.Component {
                     secondary={slot.surface}
                   />
                   {slot.link && (
-                    <IconButton>
-                      Test
-                      <LinkIcon />
-                    </IconButton>
-                    // <ListItemSecondaryAction style={{ marginLeft: 12 }}>
-                    //   <IconButton aria-label="Comments">
-                    //     <LinkIcon />
-                    //   </IconButton>
-                    // </ListItemSecondaryAction>
+                    <ListItemSecondaryAction style={{ marginLeft: 12 }}>
+                      <IconButton aria-label="Comments">
+                        <LinkIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
                   )}
                 </ListItem>
               ))}
