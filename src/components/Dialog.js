@@ -40,6 +40,7 @@ class SlotDialog extends React.Component {
 
     return (
       <Dialog
+        root="true"
         onClose={this.handleClose}
         aria-labelledby="simple-dialog-title"
         {...other}
@@ -49,21 +50,28 @@ class SlotDialog extends React.Component {
           <DialogContent>
             <List>
               {_.sortBy(slots, s => s.courtNumber).map(slot => (
-                <ListItem
-                  button
-                  onClick={() => this.handleListItemClick(slot)}
-                  key={slot.key}
-                >
+                <ListItem button key={slot.key}>
                   <ListItemText
+                    style={{ width: 350 }}
                     primary={`Bana ${slot.courtNumber}`}
                     secondary={slot.surface}
                   />
                   {slot.link && (
-                    <ListItemSecondaryAction style={{ marginLeft: 12 }}>
-                      <IconButton aria-label="Comments">
-                        <LinkIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
+                    <a
+                      style={{ color: 'rgba(0, 0, 0, 0.87)' }}
+                      href={slot.link}
+                      target="_blank"
+                    >
+                      <ListItemSecondaryAction
+                        onClick={() => this.handleListItemClick(slot)}
+                        style={{ marginLeft: 12 }}
+                      >
+                        Boka
+                        <IconButton aria-label="Comments">
+                          <LinkIcon />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </a>
                   )}
                 </ListItem>
               ))}
