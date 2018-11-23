@@ -45,7 +45,8 @@ class SlotDialog extends React.Component {
         aria-labelledby="simple-dialog-title"
         {...other}
       >
-        <div style={{ width: 350 }}>
+        {/* <div style={{ width: 350 }}> */}
+        <div>
           <DialogContent>
             <List>
               {_.sortBy(slots, s => s.courtNumber).map(slot => (
