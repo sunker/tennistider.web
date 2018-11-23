@@ -51,8 +51,6 @@ class StepSlider extends React.Component {
 
 StepSlider.propTypes = {
   classes: PropTypes.object.isRequired,
-  value: PropTypes.array.isRequired,
-  active: PropTypes.bool.isRequired,
   onValueChange: PropTypes.func.isRequired,
   picker: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired

@@ -56,6 +56,11 @@ const NotFirstTimeUser = ({ filteredSlots }) => (
 )
 
 class Home extends Component {
+  constructor() {
+    super()
+    this.onLogout = this.onLogout.bind(this)
+  }
+
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/logga-in')
@@ -91,6 +96,7 @@ class Home extends Component {
             )}
 
             <a
+              onClick={this.onLogout}
               align="right"
               style={{ marginTop: 64 }}
               href=""
