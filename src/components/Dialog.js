@@ -54,36 +54,23 @@ class SlotDialog extends React.Component {
                   onClick={() => this.handleListItemClick(slot)}
                   key={slot.key}
                 >
-                  {/* <ListItemAvatar>
-                    <Avatar className={classes.avatar}>
-                      <LinkIcon />
-                    </Avatar>
-                  </ListItemAvatar> */}
                   <ListItemText
                     primary={`Bana ${slot.courtNumber}`}
                     secondary={slot.surface}
                   />
                   {slot.link && (
-                    <ListItemSecondaryAction style={{ marginLeft: 12 }}>
-                      Gå till bokningssida
-                      <IconButton aria-label="Comments">
-                        <LinkIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
+                    <IconButton>
+                      Test
+                      <LinkIcon />
+                    </IconButton>
+                    // <ListItemSecondaryAction style={{ marginLeft: 12 }}>
+                    //   <IconButton aria-label="Comments">
+                    //     <LinkIcon />
+                    //   </IconButton>
+                    // </ListItemSecondaryAction>
                   )}
                 </ListItem>
               ))}
-              {/* <ListItem
-              button
-              onClick={() => this.handleListItemClick('addAccount')}
-            >
-              <ListItemAvatar>
-                <Avatar>
-                  <AddIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="add account" />
-            </ListItem> */}
             </List>
           </DialogContent>
           <DialogActions>
