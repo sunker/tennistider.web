@@ -16,7 +16,6 @@ import IconButton from '@material-ui/core/IconButton'
 import _ from 'lodash'
 import DialogActions from '@material-ui/core/DialogActions'
 import blue from '@material-ui/core/colors/blue'
-import { DialogContent } from '@material-ui/core'
 
 const styles = {
   avatar: {
@@ -44,7 +43,6 @@ class SlotDialog extends React.Component {
         aria-labelledby="simple-dialog-title"
         {...other}
       >
-        {/* <div style={{ width: 350 }}> */}
         <DialogTitle id="simple-dialog-title">
           {slots.length > 0
             ? slots[0].startTime.toFixed(2).toString() +
@@ -53,41 +51,39 @@ class SlotDialog extends React.Component {
             : ''}
         </DialogTitle>
         <div>
-          <DialogContent>
-            <List>
-              {_.sortBy(slots, s => s.courtNumber).map(slot => (
-                <ListItem button key={slot.key}>
-                  <ListItemAvatar>
-                    <Avatar className={classes.avatar}>
-                      <ScheduleIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    style={{ width: 350 }}
-                    primary={`Bana ${slot.courtNumber}`}
-                    secondary={slot.surface}
-                  />
-                  {slot.link && (
-                    <a
-                      style={{ color: 'rgba(0, 0, 0, 0.87)' }}
-                      href={slot.link}
-                      target="_blank"
+          <List>
+            {_.sortBy(slots, s => s.courtNumber).map(slot => (
+              <ListItem button key={slot.key}>
+                <ListItemAvatar>
+                  <Avatar className={classes.avatar}>
+                    <ScheduleIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  style={{ width: 350 }}
+                  primary={`Bana ${slot.courtNumber}`}
+                  secondary={slot.surface}
+                />
+                {slot.link && (
+                  <a
+                    style={{ color: 'rgba(0, 0, 0, 0.87)' }}
+                    href={slot.link}
+                    target="_blank"
+                  >
+                    <ListItemSecondaryAction
+                      onClick={() => this.handleListItemClick(slot)}
+                      style={{ marginLeft: 12 }}
                     >
-                      <ListItemSecondaryAction
-                        onClick={() => this.handleListItemClick(slot)}
-                        style={{ marginLeft: 12 }}
-                      >
-                        Boka
-                        <IconButton aria-label="Comments">
-                          <LinkIcon />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </a>
-                  )}
-                </ListItem>
-              ))}
-            </List>
-          </DialogContent>
+                      Boka
+                      <IconButton aria-label="Comments">
+                        <LinkIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </a>
+                )}
+              </ListItem>
+            ))}
+          </List>
           <DialogActions>
             <Button align="left" onClick={this.handleClose} color="primary">
               Avbryt
