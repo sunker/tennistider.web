@@ -44,6 +44,14 @@ class MonitoringConfig extends React.Component {
     if (this.tabs.hasOwnProperty(tab)) {
       this.setState({ value: this.tabs[tab] })
     }
+
+    window.addEventListener('popstate', event => {
+      const tab =
+        new URLSearchParams(this.props.location.search).get('tab') || 'klubbar'
+      if (this.tabs.hasOwnProperty(tab)) {
+        this.setState({ value: this.tabs[tab] })
+      }
+    })
   }
 
   handleChange = (event, value) => {

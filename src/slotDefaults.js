@@ -89,7 +89,7 @@ export const DefaultTimeRangePickers = [
 export const createPickerModelFromPreference = (
   dayPreference = defaultSlotSettings
 ) => {
-  const a = PickerRange.map((p, i) => {
+  return PickerRange.map((p, i) => {
     let model
     switch (p.label) {
       case 'Mornar':
@@ -109,7 +109,4 @@ export const createPickerModelFromPreference = (
     }
     return { ...p, model }
   })
-
-  console.log(a)
-  return a
 }
