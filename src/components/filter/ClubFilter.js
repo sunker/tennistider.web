@@ -62,7 +62,7 @@ class ClubFilter extends Component {
   }
 
   formatDateAndTime(date) {
-    return date.toISOString().substring(0, 16)
+    return date.toISOString().substring(0, 10)
   }
 
   render() {

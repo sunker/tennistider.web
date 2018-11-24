@@ -22,7 +22,7 @@ function DateAndTimePickers(props) {
     <TextField
       id="datetime-local"
       label={label}
-      type="datetime-local"
+      type="date"
       defaultValue={value}
       className={`form-item ${classes.textField}`}
       InputLabelProps={{

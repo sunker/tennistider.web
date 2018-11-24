@@ -12,7 +12,6 @@ import {
 } from './types'
 import setAuthToken from '../setAuthToken'
 import jwt_decode from 'jwt-decode'
-// import { loadSlots } from './slotFilter'
 
 export const registerUser = (user, history) => dispatch => {
   axios
@@ -125,11 +124,6 @@ export const setCurrentUser = decoded => dispatch => {
     type: SET_CURRENT_USER,
     payload: jwt
   })
-
-  // dispatch({
-  //   type: RECEIVE_SETTINGS,
-  //   payload: { locations, clubs }
-  // })
 }
 
 export const logoutUser = history => dispatch => {
