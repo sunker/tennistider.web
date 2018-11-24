@@ -102,13 +102,13 @@ class Home extends Component {
               href=""
               className="nav-link"
             >
-              <img
+              {/* <img
                 src={auth.user.avatar}
                 alt={auth.user.email}
                 title={auth.user.name}
                 className="rounded-circle"
                 style={{ width: '25px', marginRight: '5px' }}
-              />
+              /> */}
               Logga ut
             </a>
           </React.Fragment>

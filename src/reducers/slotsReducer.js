@@ -6,12 +6,16 @@ import {
   SET_START_DATE_AND_TIME,
   SET_END_DATE_AND_TIME,
   SET_TIME_RANGE_FILTER,
-  TOGGLE_TIME_RANGE_FILTER_ACTIVE
+  TOGGLE_TIME_RANGE_FILTER_ACTIVE,
+  RECEIVE_SLOTS_COUNT,
+  LOADING_SLOTS_CHANGED
 } from '../actions/types'
 import { DefaultTimeRangePickers } from '../slotDefaults'
 
 const initialState = {
   slots: [],
+  slotsCount: 0,
+  loading: false,
   settings: {
     clubs: [],
     locations: [],
@@ -106,7 +110,16 @@ export default function(state = initialState, action) {
           })
         }
       }
-
+    case RECEIVE_SLOTS_COUNT:
+      return {
+        ...state,
+        slotsCount: action.payload
+      }
+    case LOADING_SLOTS_CHANGED:
+      return {
+        ...state,
+        loading: action.payload
+      }
     default:
       return state
   }

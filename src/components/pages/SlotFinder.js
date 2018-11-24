@@ -34,7 +34,7 @@ class SlotFinder extends Component {
   }
 
   render() {
-    const { classes, slots, settings } = this.props
+    const { classes, slots, loading } = this.props
     const { open } = this.state
 
     return (
@@ -57,9 +57,9 @@ class SlotFinder extends Component {
           <ClubFilter />
         </Collapse>
         <Typography style={{ marginTop: 24 }} align="left">
-          {!settings.loading && `${slots.length} tider hittades`}
+          {!loading && `${slots.length} tider hittades`}
         </Typography>
-        {settings.loading && (
+        {loading && (
           <React.Fragment>
             <CircularProgress color="secondary" />
             <p>Hämtar tider...</p>
@@ -80,6 +80,7 @@ SlotFinder.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth,
   settings: state.settings,
+  loading: state.slot.loading,
   slots: filteredSlots(state)
 })
 

@@ -16,23 +16,23 @@ export const setFilterLocations = locations => dispatch => {
   })
 }
 
-export const loadSlots = () => async (dispatch, getStore) => {
-  const { data } = await axios.get('/api/slot/upcoming')
-  const { club } = getStore()
-  const slots = data.map(s => {
-    const date = new Date(s.date)
-    date.setHours(s.startTime)
-    return {
-      ...s,
-      ...club.clubs.find(c => c.id === s.clubId),
-      date
-    }
-  })
-  dispatch({
-    type: RECEIVE_SLOTS,
-    payload: slots
-  })
-}
+// export const loadSlots = () => async (dispatch, getStore) => {
+//   const { data } = await axios.get('/api/slot/upcoming')
+//   const { club } = getStore()
+//   const slots = data.map(s => {
+//     const date = new Date(s.date)
+//     date.setHours(s.startTime)
+//     return {
+//       ...s,
+//       ...club.clubs.find(c => c.id === s.clubId),
+//       date
+//     }
+//   })
+//   dispatch({
+//     type: RECEIVE_SLOTS,
+//     payload: slots
+//   })
+// }
 
 export const setFilterClubs = selectedClubIds => (dispatch, getStore) => {
   const clubs = getStore().club.clubs

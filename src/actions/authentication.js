@@ -6,10 +6,13 @@ import {
   LOADING_INITIAL_DATA_CHANGED,
   SET_CLUBS,
   INIT_SLOT_FILTER_SETTINGS,
-  RECEIVE_SLOTS
+  RECEIVE_SLOTS,
+  RECEIVE_SLOTS_COUNT,
+  LOADING_SLOTS_CHANGED
 } from './types'
 import setAuthToken from '../setAuthToken'
 import jwt_decode from 'jwt-decode'
+// import { loadSlots } from './slotFilter'
 
 export const registerUser = (user, history) => dispatch => {
   axios
@@ -44,14 +47,50 @@ export const loginUser = user => dispatch => {
     })
 }
 
+const prepareSlots = (slots, clubs) => {
+  return slots.data.map(s => {
+    const date = new Date(s.date)
+    date.setHours(Math.trunc(s.startTime))
+    const narray = s.startTime.toString().split('.')
+    const result = narray.length > 1 ? `${narray[1]}0` : '0.0'
+    date.setMinutes(Number(result))
+    date.setSeconds(0)
+    date.setMilliseconds(0)
+    return {
+      ...s,
+      ...clubs.data.find(c => c.id === s.clubId),
+      date
+    }
+  })
+}
+
+export const loadSlots = (clubIds, clubs) => async dispatch => {
+  axios.get(`/api/slot/upcoming?${clubIds.join(',')}`).then(async userSlots => {
+    dispatch({
+      type: RECEIVE_SLOTS,
+      payload: prepareSlots(userSlots, clubs)
+    })
+    dispatch({ type: LOADING_SLOTS_CHANGED, payload: false })
+    const allSlots = await axios.get(`/api/slot/upcoming`)
+    dispatch({
+      type: RECEIVE_SLOTS,
+      payload: prepareSlots(allSlots, clubs)
+    })
+  })
+}
+
 export const loadInitialData = () => async (dispatch, getStore) => {
   if (getStore().club.clubs.length === 0) {
+    dispatch({ type: LOADING_SLOTS_CHANGED, payload: true })
     dispatch({ type: LOADING_INITIAL_DATA_CHANGED, payload: true })
-    let [user, clubs, slots] = await Promise.all([
+    let [user, clubs, slotsCount] = await Promise.all([
       axios.get('/api/users/me'),
       axios.get('/api/club/list'),
-      axios.get('/api/slot/upcoming')
+      axios.get('/api/slot/upcoming-count')
     ])
+
+    dispatch(loadSlots(user.data.slotPreference.map(s => s.clubId), clubs))
+
     dispatch({ type: SET_CLUBS, payload: clubs.data })
     const locations =
       !user.data.locations || user.data.locations.length === 0
@@ -64,6 +103,7 @@ export const loadInitialData = () => async (dispatch, getStore) => {
         clubs: user.data.slotPreference.map(s => ({ ...s, expanded: false }))
       }
     })
+
     dispatch({
       type: INIT_SLOT_FILTER_SETTINGS,
       payload: {
@@ -72,24 +112,7 @@ export const loadInitialData = () => async (dispatch, getStore) => {
         initialized: true
       }
     })
-    slots = slots.data.map(s => {
-      const date = new Date(s.date)
-      date.setHours(Math.trunc(s.startTime))
-      const narray = s.startTime.toString().split('.')
-      const result = narray.length > 1 ? `${narray[1]}0` : '0.0'
-      date.setMinutes(Number(result))
-      date.setSeconds(0)
-      date.setMilliseconds(0)
-      return {
-        ...s,
-        ...clubs.data.find(c => c.id === s.clubId),
-        date
-      }
-    })
-    dispatch({
-      type: RECEIVE_SLOTS,
-      payload: slots
-    })
+    dispatch({ type: RECEIVE_SLOTS_COUNT, payload: slotsCount.data })
     dispatch({ type: LOADING_INITIAL_DATA_CHANGED, payload: false })
   }
 }
