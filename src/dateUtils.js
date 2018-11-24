@@ -34,6 +34,8 @@ export const prettyDate = inputDate => {
   const now = new Date()
   const tomorrow = new Date()
   tomorrow.setDate(now.getDate() + 1)
+  const currentWeek = getWeekNumber(now)
+  const dateWeek = getWeekNumber(inputDate)
   let result = ''
 
   if (datesMatch(now, inputDate)) {
@@ -44,9 +46,32 @@ export const prettyDate = inputDate => {
     result = `${getDayOfTheWeek(inputDate)}`
   }
 
-  if (getDateDiff(now, inputDate) > 7) {
-    result += ` ${inputDate.getDate()}`
+  if (getDateDiff(now, inputDate) > 7 && currentWeek !== dateWeek) {
+    result += ` ${inputDate.getDate()}/${inputDate.getMonth()}`
   }
 
   return result
+}
+
+export const getWeekNumber = date => {
+  var date = new Date(date.getTime())
+  date.setHours(0, 0, 0, 0)
+  date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7))
+  var week1 = new Date(date.getFullYear(), 0, 4)
+  return (
+    1 +
+    Math.round(
+      ((date.getTime() - week1.getTime()) / 86400000 -
+        3 +
+        ((week1.getDay() + 6) % 7)) /
+        7
+    )
+  )
+}
+
+// Returns the four-digit year corresponding to the ISO week of the date.
+export const getWeekYear = date => {
+  var date = new Date(date.getTime())
+  date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7))
+  return date.getFullYear()
 }

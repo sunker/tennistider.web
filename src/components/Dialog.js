@@ -10,8 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Dialog from '@material-ui/core/Dialog'
 import LinkIcon from '@material-ui/icons/Link'
-import AddIcon from '@material-ui/icons/Add'
-import Typography from '@material-ui/core/Typography'
+import ScheduleIcon from '@material-ui/icons/Schedule'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
 import _ from 'lodash'
@@ -46,11 +45,23 @@ class SlotDialog extends React.Component {
         {...other}
       >
         {/* <div style={{ width: 350 }}> */}
+        <DialogTitle id="simple-dialog-title">
+          {slots.length > 0
+            ? slots[0].startTime.toFixed(2).toString() +
+              '-' +
+              slots[0].endTime.toFixed(2).toString()
+            : ''}
+        </DialogTitle>
         <div>
           <DialogContent>
             <List>
               {_.sortBy(slots, s => s.courtNumber).map(slot => (
                 <ListItem button key={slot.key}>
+                  <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      <ScheduleIcon />
+                    </Avatar>
+                  </ListItemAvatar>
                   <ListItemText
                     style={{ width: 350 }}
                     primary={`Bana ${slot.courtNumber}`}
