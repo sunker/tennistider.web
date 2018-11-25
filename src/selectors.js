@@ -20,27 +20,29 @@ export const getClubsByLocationWithUserData = (
   const clubsByLocation = club.clubs.filter(c =>
     target.locations.includes(c.location)
   )
-
+  const clubsWithSelected = clubsByLocation.map(c => ({
+    ...c,
+    selected: target.clubs.some(x => x.clubId === c.id && !x.inactivated)
+  }))
   return _.orderBy(
-    clubsByLocation.map(c => ({
-      ...c,
-      selected: target.clubs.some(x => x.clubId === c.id && !x.inactivated)
-    })),
-    c => c.selected,
-    'desc'
+    clubsWithSelected,
+    [c => c.selected, c => c.name],
+    ['desc', 'asc']
   )
 }
 
 export const getFavouriteClubsWithTimeRanges = state => {
   const { club, settings } = state
   if (!club || club.clubs.length === 0) return []
-  return settings.clubs
+  const data = settings.clubs
     .filter(c => c.clubId !== -1 && !c.inactivated)
     .map(c => ({
       ...c,
       ...club.clubs.find(club => club.id === c.clubId),
       pickerRange: createPickerModelFromPreference(c.days)
     }))
+
+  return _.orderBy(data, c => c.name, 'asc')
 }
 
 export const getClubTimeRanges = (settings, clubId) => {
