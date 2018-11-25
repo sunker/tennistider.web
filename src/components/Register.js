@@ -40,7 +40,7 @@ class Register extends Component {
   handleSubmit(e) {
     e.preventDefault()
     const user = {
-      name: this.state.name,
+      name: this.state.name.toLowerCase(),
       email: this.state.email,
       password: this.state.password,
       password_confirm: this.state.password_confirm

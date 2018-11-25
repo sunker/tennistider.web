@@ -1,6 +1,6 @@
 {
     "rules": [
-      { "pathname": "/api/**", "method": ["GET", "POST"], "dest": "tennistiderapi-rnnjcvkuuq.now.sh" },
+      { "pathname": "/api/**", "method": ["GET", "POST"], "dest": "tennistider-api.herokuapp.com" },
       { "dest": "tennistiderweb-refjzoxhfx.now.sh" }
     ]
   }

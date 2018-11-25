@@ -36,7 +36,7 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault()
     const user = {
-      email: this.state.email,
+      email: this.state.email.toLowerCase(),
       password: this.state.password
     }
     this.props.loginUser(user)
@@ -115,9 +115,17 @@ class Login extends Component {
           >
             Logga in
           </Button>
-          <Typography style={{marginTop: 12}} align="center">Inget konto? Klicka <Link style={{color: 'rgba(0, 0, 0, 0.87)'}} className="nav-link" to="/skapa-konto">
-            här
-          </Link> för att registrera dig</Typography>
+          <Typography style={{ marginTop: 12 }} align="center">
+            Inget konto? Klicka{' '}
+            <Link
+              style={{ color: 'rgba(0, 0, 0, 0.87)' }}
+              className="nav-link"
+              to="/skapa-konto"
+            >
+              här
+            </Link>{' '}
+            för att registrera dig
+          </Typography>
         </form>
       </Paper>
     )
