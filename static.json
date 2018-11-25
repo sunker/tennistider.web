@@ -7,7 +7,7 @@
     },
     "proxies": {
       "/api/": {
-        "origin": "https://tennistiderapi-snnwdvyque.now.sh/api/"
+        "origin": "https://tennistider-api.herokuapp.com/api/"
       }
     },
     "headers": {
