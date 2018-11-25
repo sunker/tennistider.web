@@ -62,18 +62,20 @@ const prepareSlots = (slots, clubs) => {
 }
 
 export const loadSlots = (clubIds, clubs) => async dispatch => {
-  axios.get(`/api/slot/upcoming?${clubIds.join(',')}`).then(async userSlots => {
-    dispatch({
-      type: RECEIVE_SLOTS,
-      payload: prepareSlots(userSlots, clubs)
+  axios
+    .get(`/api/slot/upcoming?clubs=${clubIds.join(',')}`)
+    .then(async userSlots => {
+      dispatch({
+        type: RECEIVE_SLOTS,
+        payload: prepareSlots(userSlots, clubs)
+      })
+      dispatch({ type: LOADING_SLOTS_CHANGED, payload: false })
+      const allSlots = await axios.get(`/api/slot/upcoming`)
+      dispatch({
+        type: RECEIVE_SLOTS,
+        payload: prepareSlots(allSlots, clubs)
+      })
     })
-    dispatch({ type: LOADING_SLOTS_CHANGED, payload: false })
-    const allSlots = await axios.get(`/api/slot/upcoming`)
-    dispatch({
-      type: RECEIVE_SLOTS,
-      payload: prepareSlots(allSlots, clubs)
-    })
-  })
 }
 
 export const loadInitialData = () => async (dispatch, getStore) => {
