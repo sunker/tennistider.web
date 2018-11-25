@@ -5,11 +5,6 @@
     "routes": {
       "/**": "index.html"
     },
-    "proxies": {
-      "/api/": {
-        "origin": "https://tennistider-api.herokuapp.com"
-      }
-    },
     "headers": {
         "/": {
             "Cache-Control": "no-store, no-cache"
