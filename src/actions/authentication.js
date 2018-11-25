@@ -33,9 +33,7 @@ export const loginUser = user => dispatch => {
       localStorage.setItem('jwtToken', token)
       setAuthToken(token)
       const decoded = jwt_decode(token)
-      let { locations, clubSettings: clubs, ...jwt } = decoded
-      locations = locations.length > 0 ? locations : ['Stockholm']
-      dispatch(setCurrentUser(jwt))
+      dispatch(setCurrentUser(decoded))
       dispatch(loadInitialData())
     })
     .catch(err => {
@@ -117,12 +115,9 @@ export const loadInitialData = () => async (dispatch, getStore) => {
 }
 
 export const setCurrentUser = decoded => dispatch => {
-  let { locations, clubSettings: clubs, ...jwt } = decoded
-  locations = !locations || locations.length === 0 ? ['Stockholm'] : locations
-  clubs = !clubs ? [] : clubs
   dispatch({
     type: SET_CURRENT_USER,
-    payload: jwt
+    payload: decoded
   })
 }
 

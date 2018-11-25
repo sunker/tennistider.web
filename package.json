@@ -32,5 +32,5 @@
     "eject": "react-scripts eject",
     "heroku-postbuild": "NODE_ENV='production' react-scripts build"
   },
-  "proxy": "http://localhost:3011"
+  "proxy": "https://tennistider-api.herokuapp.com"
 }
