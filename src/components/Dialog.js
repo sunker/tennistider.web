@@ -52,7 +52,7 @@ class SlotDialog extends React.Component {
         </DialogTitle>
         <div>
           <List>
-            {_.sortBy(slots, s => s.courtNumber).map(slot => (
+            {_.sortBy(slots, s => s.courtName || s.courtNumber).map(slot => (
               <ListItem button key={slot.key}>
                 <ListItemAvatar>
                   <Avatar className={classes.avatar}>
@@ -61,7 +61,9 @@ class SlotDialog extends React.Component {
                 </ListItemAvatar>
                 <ListItemText
                   style={{ width: 350 }}
-                  primary={`Bana ${slot.courtNumber}`}
+                  primary={
+                    slot.courtName ? slot.courtName : `Bana ${slot.courtNumber}`
+                  }
                   secondary={slot.surface}
                 />
                 {slot.link && (
