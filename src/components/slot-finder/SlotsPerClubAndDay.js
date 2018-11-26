@@ -55,7 +55,7 @@ class SlotsPerClubAndDay extends Component {
                 className={classes.paper}
                 onClick={() => this.handleClickOpen(groups[s])}
               >
-                {s}
+                {s.split('.')[0]}
                 <sup
                   style={{
                     verticalAlign: 'text-top',
