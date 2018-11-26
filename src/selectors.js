@@ -70,7 +70,9 @@ const startTimeIsWithinRanges = (slot, [morning, lunch, night, weekend]) => {
 
 export const filteredSlots = state => {
   const { slot, club } = state
-  const filteredClubsids = slot.settings.clubs.map(c => c.clubId)
+  const filteredClubsids = slot.settings.clubs
+    .filter(c => c.clubId !== -1 && !c.inactivated)
+    .map(c => c.clubId)
   return slot.slots.filter(
     s =>
       filteredClubsids.includes(s.clubId) &&

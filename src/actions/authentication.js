@@ -88,7 +88,14 @@ export const loadInitialData = () => async (dispatch, getStore) => {
       axios.get('/api/slot/upcoming-count')
     ])
 
-    dispatch(loadSlots(user.data.slotPreference.map(s => s.clubId), clubs))
+    dispatch(
+      loadSlots(
+        user.data.slotPreference
+          .filter(c => c.clubId !== -1 && !c.inactivated)
+          .map(s => s.clubId),
+        clubs
+      )
+    )
 
     dispatch({ type: SET_CLUBS, payload: clubs.data })
     const locations =

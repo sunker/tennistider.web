@@ -38,7 +38,10 @@ export default function(state = initialState, action) {
     case RECEIVE_SLOTS:
       return {
         ...state,
-        slots: action.payload
+        slots: [
+          ...state.slots,
+          ...action.payload.filter(s => !state.slots.some(x => s._id === x._id))
+        ]
       }
     case SET_FILTERED_CLUBS:
       return {
