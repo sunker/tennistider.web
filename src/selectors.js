@@ -73,7 +73,7 @@ export const filteredSlots = state => {
   const filteredClubsids = slot.settings.clubs
     .filter(c => c.clubId !== -1 && !c.inactivated)
     .map(c => c.clubId)
-  return slot.slots.filter(
+  const slots = slot.slots.filter(
     s =>
       filteredClubsids.includes(s.clubId) &&
       slotHasSelectedLocation(s, club.clubs, slot.settings.locations) &&
@@ -81,4 +81,5 @@ export const filteredSlots = state => {
       s.date.getTime() <= slot.settings.endDate.getTime() &&
       startTimeIsWithinRanges(s, slot.settings.timeRanges)
   )
+  return _.orderBy(slots, s => new Date(s.date).getTime(), 'asc')
 }

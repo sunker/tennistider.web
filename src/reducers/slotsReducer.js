@@ -17,6 +17,7 @@ const initialState = {
   slotsCount: 0,
   loading: false,
   settings: {
+    sports: ['tennis'],
     clubs: [],
     locations: [],
     startDate: new Date(),

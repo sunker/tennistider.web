@@ -23,19 +23,17 @@ class SlotList extends Component {
 
     return (
       <List style={divStyle}>
-        {Object.keys(days)
-          .sort()
-          .map((day, i) => (
-            <React.Fragment key={i}>
-              <ListSubheader disableSticky={true} style={{ paddingLeft: 0 }}>
-                {prettyDate(new Date(days[day][0].date))}
-              </ListSubheader>
-              <DaySlotsPerClub slots={days[day]} />
-              <li>
-                <Divider style={{ marginTop: '12px' }} />
-              </li>
-            </React.Fragment>
-          ))}
+        {Object.keys(days).map((day, i) => (
+          <React.Fragment key={i}>
+            <ListSubheader disableSticky={true} style={{ paddingLeft: 0 }}>
+              {prettyDate(new Date(days[day][0].date))}
+            </ListSubheader>
+            <DaySlotsPerClub slots={days[day]} />
+            <li>
+              <Divider style={{ marginTop: '12px' }} />
+            </li>
+          </React.Fragment>
+        ))}
       </List>
     )
   }

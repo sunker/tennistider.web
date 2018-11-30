@@ -62,7 +62,11 @@ class SlotDialog extends React.Component {
                 <ListItemText
                   style={{ width: 350 }}
                   primary={
-                    slot.courtName ? slot.courtName : `Bana ${slot.courtNumber}`
+                    slot.courtName
+                      ? slot.courtName === 'unknowncourt'
+                        ? 'Okänt nummer på banan'
+                        : slot.courtName
+                      : `Bana ${slot.courtNumber}`
                   }
                   secondary={slot.surface}
                 />
