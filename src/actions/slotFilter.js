@@ -5,7 +5,8 @@ import {
   SET_START_DATE_AND_TIME,
   SET_END_DATE_AND_TIME,
   SET_TIME_RANGE_FILTER,
-  TOGGLE_TIME_RANGE_FILTER_ACTIVE
+  TOGGLE_TIME_RANGE_FILTER_ACTIVE,
+  SET_FILTERED_SPORTS
 } from './types'
 
 export const setFilterLocations = locations => dispatch => {
@@ -23,6 +24,13 @@ export const setFilterClubs = selectedClubIds => (dispatch, getStore) => {
   dispatch({
     type: SET_FILTERED_CLUBS,
     payload: selectedClubs
+  })
+}
+
+export const setFilterSports = selectedSports => (dispatch, getStore) => {
+  dispatch({
+    type: SET_FILTERED_SPORTS,
+    payload: selectedSports
   })
 }
 

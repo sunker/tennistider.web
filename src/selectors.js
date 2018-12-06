@@ -31,6 +31,14 @@ export const getClubsByLocationWithUserData = (
   )
 }
 
+export const getSelectedSports = state => {
+  const { slot } = state
+  return slot.availableSports.sort().map(s => ({
+    name: s,
+    selected: slot.settings.sports.includes(s)
+  }))
+}
+
 export const getFavouriteClubsWithTimeRanges = state => {
   const { club, settings } = state
   if (!club || club.clubs.length === 0) return []
@@ -75,6 +83,7 @@ export const filteredSlots = state => {
     .map(c => c.clubId)
   const slots = slot.slots.filter(
     s =>
+      slot.settings.sports.includes(s.sport.toLowerCase()) &&
       filteredClubsids.includes(s.clubId) &&
       slotHasSelectedLocation(s, club.clubs, slot.settings.locations) &&
       s.date.getTime() >= slot.settings.startDate.getTime() &&

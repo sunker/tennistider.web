@@ -8,10 +8,12 @@ import {
   INIT_SLOT_FILTER_SETTINGS,
   RECEIVE_SLOTS,
   RECEIVE_SLOTS_COUNT,
-  LOADING_SLOTS_CHANGED
+  LOADING_SLOTS_CHANGED,
+  RECEIVE_SPORTS
 } from './types'
 import setAuthToken from '../setAuthToken'
 import jwt_decode from 'jwt-decode'
+import uniq from 'lodash.uniq'
 
 export const registerUser = (user, history) => dispatch => {
   axios
@@ -61,6 +63,10 @@ const prepareSlots = (slots, clubs) => {
   })
 }
 
+const extractSports = slots => {
+  return uniq(slots.map(s => s.sport.toLowerCase()))
+}
+
 export const loadSlots = (clubIds, clubs) => async dispatch => {
   axios
     .get(`/api/slot/upcoming?clubs=${clubIds.join(',')}`)
@@ -69,8 +75,10 @@ export const loadSlots = (clubIds, clubs) => async dispatch => {
         type: RECEIVE_SLOTS,
         payload: prepareSlots(userSlots, clubs)
       })
+      dispatch({ type: RECEIVE_SPORTS, payload: extractSports(userSlots.data) })
       dispatch({ type: LOADING_SLOTS_CHANGED, payload: false })
       const allSlots = await axios.get(`/api/slot/upcoming`)
+      dispatch({ type: RECEIVE_SPORTS, payload: extractSports(allSlots.data) })
       dispatch({
         type: RECEIVE_SLOTS,
         payload: prepareSlots(allSlots, clubs)

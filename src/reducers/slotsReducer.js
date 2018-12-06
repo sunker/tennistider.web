@@ -8,7 +8,9 @@ import {
   SET_TIME_RANGE_FILTER,
   TOGGLE_TIME_RANGE_FILTER_ACTIVE,
   RECEIVE_SLOTS_COUNT,
-  LOADING_SLOTS_CHANGED
+  LOADING_SLOTS_CHANGED,
+  RECEIVE_SPORTS,
+  SET_FILTERED_SPORTS
 } from '../actions/types'
 import { DefaultTimeRangePickers } from '../slotDefaults'
 
@@ -16,6 +18,7 @@ const initialState = {
   slots: [],
   slotsCount: 0,
   loading: false,
+  availableSports: ['tennis', 'padel', 'squash', 'badminton', 'pingis'],
   settings: {
     sports: ['tennis'],
     clubs: [],
@@ -123,6 +126,19 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: action.payload
+      }
+    case RECEIVE_SPORTS:
+      return {
+        ...state,
+        availableSports: action.payload.map(x => x.toLowerCase())
+      }
+    case SET_FILTERED_SPORTS:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          sports: action.payload.map(x => x.toLowerCase())
+        }
       }
     default:
       return state

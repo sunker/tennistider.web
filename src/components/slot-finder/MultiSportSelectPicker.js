@@ -23,33 +23,39 @@ const MenuProps = {
   }
 }
 
-class MultiClubSelectPicker extends Component {
+class MultiSportSelectPicker extends Component {
+  capitalizeTxt = txt => {
+    return txt.charAt(0).toUpperCase() + txt.slice(1)
+  }
+
   render() {
     const { sports } = this.props
     return (
       <FormControl className={'form-item'}>
-        <InputLabel htmlFor="select-multiple-clubs">Sporter</InputLabel>
+        <InputLabel htmlFor="select-multiple-sports">Sporter</InputLabel>
         <Select
           style={{ maxWidth: '100%' }}
           multiple
-          value={clubs.filter(x => x.selected).map(y => y.id)}
+          value={sports.filter(x => x.selected).map(y => y.name)}
           onChange={this.props.onValueChange}
-          input={<Input id="select-multiple-clubs" />}
+          input={<Input id="select-multiple-sports" />}
           MenuProps={MenuProps}
           renderValue={selected => (
             <div>
-              {clubs.filter(x => x.selected).length > 3
-                ? `${clubs.filter(x => x.selected).length} klubbar valda`
-                : clubs
+              {sports.filter(x => x.selected).length > 3
+                ? `${sports.filter(x => x.selected).length} sporter valda`
+                : sports
                     .filter(x => x.selected)
-                    .map((c, i) => <Chip key={c.id} label={c.name} />)}
+                    .map((c, i) => (
+                      <Chip key={i} label={this.capitalizeTxt(c.name)} />
+                    ))}
             </div>
           )}
         >
-          {clubs.map((c, i) => (
-            <MenuItem value={c.id} key={i}>
+          {sports.map((c, i) => (
+            <MenuItem value={c.name} key={i}>
               <Checkbox checked={c.selected} />
-              <ListItemText primary={c.name} secondary={c.location} />
+              <ListItemText primary={this.capitalizeTxt(c.name)} />
             </MenuItem>
           ))}
         </Select>
@@ -58,9 +64,9 @@ class MultiClubSelectPicker extends Component {
   }
 }
 
-MultiClubSelectPicker.propTypes = {
+MultiSportSelectPicker.propTypes = {
   classes: PropTypes.object.isRequired,
   onValueChange: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(MultiClubSelectPicker)
+export default withStyles(styles)(MultiSportSelectPicker)

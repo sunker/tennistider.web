@@ -8,15 +8,18 @@ import {
   setStartDateAndTime,
   setEndDateAndTime,
   setTimeRangeFilter,
-  toggleTimeFilterActive
+  toggleTimeFilterActive,
+  setFilterSports
 } from '../../actions/slotFilter'
 import LocationPicker from '../LocationPicker'
 import MultiClubSelectPicker from '../slot-finder/MultiClubSelectPicker'
+import MultiSportSelectPicker from '../slot-finder/MultiSportSelectPicker'
 import DateAndTimePicker from '../DateAndTimePicker'
 import TimeRangesPicker from '../time/TimeRangesPicker'
 import {
   getClubsByLocationWithUserData,
-  getLocationsWithUserData
+  getLocationsWithUserData,
+  getSelectedSports
 } from '../../selectors'
 
 class ClubFilter extends Component {
@@ -31,6 +34,7 @@ class ClubFilter extends Component {
     this.handleTimeChange = this.handleTimeChange.bind(this)
     this.handleRangeChange = this.handleRangeChange.bind(this)
     this.handleToggleRangeActive = this.handleToggleRangeActive.bind(this)
+    this.handleSportFilterToggle = this.handleSportFilterToggle.bind(this)
   }
 
   handleToggleRangeActive(timeRangeIndex) {
@@ -43,6 +47,10 @@ class ClubFilter extends Component {
 
   handleClubFilterToggle(event) {
     this.props.setFilterClubs(event.target.value)
+  }
+
+  handleSportFilterToggle(event) {
+    this.props.setFilterSports(event.target.value)
   }
 
   handleLocationChange(event) {
@@ -66,7 +74,7 @@ class ClubFilter extends Component {
   }
 
   render() {
-    const { clubs, settings } = this.props
+    const { clubs, settings, sports } = this.props
     return (
       <div
         style={{
@@ -83,6 +91,10 @@ class ClubFilter extends Component {
         <MultiClubSelectPicker
           onValueChange={this.handleClubFilterToggle}
           clubs={clubs}
+        />
+        <MultiSportSelectPicker
+          onValueChange={this.handleSportFilterToggle}
+          sports={sports}
         />
         <DateAndTimePicker
           onValueChange={this.handleStartDateAndTimeChange}
@@ -108,6 +120,7 @@ class ClubFilter extends Component {
 const mapStateToProps = state => ({
   settings: state.slot.settings,
   clubs: getClubsByLocationWithUserData(state, true),
+  sports: getSelectedSports(state),
   locationsWithUserData: getLocationsWithUserData(state, true)
 })
 
@@ -115,6 +128,7 @@ export default connect(
   mapStateToProps,
   {
     setFilterClubs,
+    setFilterSports,
     setFilterLocations,
     setStartDateAndTime,
     setEndDateAndTime,
