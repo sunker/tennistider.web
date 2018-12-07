@@ -50,10 +50,10 @@ class SlotChart extends Component {
 
     return (
       <BarChart
-        width={370}
-        height={300}
+        width={350}
+        height={250}
         data={data}
-        margin={{ right: 20, bottom: 5 }}
+        margin={{ right: 0, bottom: 5 }}
       >
         <XAxis dataKey="name" />
         <YAxis />
