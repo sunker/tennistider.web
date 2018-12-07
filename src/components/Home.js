@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import { filteredSlots } from '../selectors'
 import { logoutUser } from '../actions/authentication'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import SlotChart from './chart/SlotChart'
 
 const FirstTimeUser = ({ slots, filteredSlots }) => {
   return (
@@ -73,7 +74,7 @@ class Home extends Component {
   }
 
   render() {
-    const { settings, auth } = this.props
+    const { settings, filteredSlots } = this.props
     const activeClubs = settings.clubs.filter(
       c => c.clubId !== -1 && !c.inactivated
     )
@@ -86,6 +87,8 @@ class Home extends Component {
           </React.Fragment>
         ) : (
           <React.Fragment>
+            <h2>Nästa sju dagar</h2>
+            <SlotChart slots={filteredSlots} />
             <h2>
               Du bevakar just nu <em>{activeClubs.length}</em> klubbar
             </h2>

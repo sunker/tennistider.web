@@ -15,6 +15,10 @@ body {
 /* h1 {
   color: #fff;
 } */
+.recharts-default-legend {
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+}
 
 .form-item {
   margin-bottom: 24px !important;
