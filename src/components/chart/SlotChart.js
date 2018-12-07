@@ -50,7 +50,7 @@ class SlotChart extends Component {
 
     return (
       <BarChart
-        width={410}
+        width={370}
         height={300}
         data={data}
         margin={{ right: 20, bottom: 5 }}
