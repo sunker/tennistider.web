@@ -58,6 +58,7 @@ class SlotFinder extends Component {
         </Collapse>
         <Typography style={{ marginTop: 24 }} align="left">
           {!loading && `${slots.length} tider hittades`}
+          {!loading && slots.length === 0 && `. Prova ändra ditt filter ovan`}
         </Typography>
         {loading && (
           <React.Fragment>

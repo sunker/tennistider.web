@@ -14,6 +14,7 @@ import SlotChart from './chart/SlotChart'
 const FirstTimeUser = ({ slots, filteredSlots }) => {
   return (
     <React.Fragment>
+      <h2>Du bevakar inga klubbar</h2>
       <Link style={{ textDecoration: 'none' }} to="/bevakningar?tab=klubbar">
         <Button type="submit" fullWidth variant="contained" color="primary">
           Skapa din första bevakning >>
@@ -87,11 +88,16 @@ class Home extends Component {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <h2>Nästa sju dagar</h2>
-            <SlotChart slots={filteredSlots} />
-            <h2>
-              Du bevakar just nu <em>{activeClubs.length}</em> klubbar
-            </h2>
+            {activeClubs.length !== 0 && (
+              <React.Fragment>
+                <h2>Nästa sju dagar</h2>
+                <SlotChart slots={filteredSlots} />
+                <h2>
+                  Du bevakar just nu <em>{activeClubs.length}</em> klubbar
+                </h2>
+              </React.Fragment>
+            )}
+
             {activeClubs.length === 0 ? (
               <FirstTimeUser {...this.props} />
             ) : (
