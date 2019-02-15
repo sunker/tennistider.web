@@ -2,15 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { prettyDate } from '../../dateUtils'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend
-} from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 
 const colors = [
   '#76B852',

@@ -92,7 +92,7 @@ export const loadInitialData = () => async (dispatch, getStore) => {
     dispatch({ type: LOADING_INITIAL_DATA_CHANGED, payload: true })
     let [user, clubs, slotsCount] = await Promise.all([
       axios.get('/api/users/me'),
-      axios.get('/api/club/list'),
+      axios.get('/api/club/v2/list'),
       axios.get('/api/slot/upcoming-count')
     ])
 

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
   SET_FILTER_LOCATIONS,
   SET_FILTERED_CLUBS,
