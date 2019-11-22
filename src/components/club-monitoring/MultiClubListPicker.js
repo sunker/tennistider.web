@@ -27,7 +27,14 @@ class MultiClubListPicker extends Component {
               alt={club.name}
               src={club.imageSrc ? club.imageSrc : `/img/${club.image}`}
             />
-            <ListItemText primary={club.name} secondary={club.location} />
+            <ListItemText
+              primary={club.name}
+              secondary={
+                club.subLocation
+                  ? `${club.location}, ${club.subLocation}`
+                  : club.location
+              }
+            />
             <ListItemSecondaryAction>
               <Checkbox
                 onChange={() => this.props.onValueChange(club.id)}

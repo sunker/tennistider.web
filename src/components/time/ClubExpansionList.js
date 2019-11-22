@@ -52,7 +52,14 @@ class ClubExpansionList extends Component {
                 alt={club.name}
                 src={club.imageSrc ? club.imageSrc : `/img/${club.image}`}
               />
-              <ListItemText primary={club.name} secondary={club.location} />
+              <ListItemText
+                primary={club.name}
+                secondary={
+                  club.subLocation
+                    ? `${club.location}, ${club.subLocation}`
+                    : club.location
+                }
+              />
               {club.expanded ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={club.expanded} timeout="auto" unmountOnExit>
