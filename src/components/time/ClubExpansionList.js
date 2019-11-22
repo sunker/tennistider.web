@@ -48,7 +48,10 @@ class ClubExpansionList extends Component {
               button
               onClick={() => onExpand(club)}
             >
-              <Avatar alt={club.name} src={`/img/${club.image}`} />
+              <Avatar
+                alt={club.name}
+                src={club.imageSrc ? club.imageSrc : `/img/${club.image}`}
+              />
               <ListItemText primary={club.name} secondary={club.location} />
               {club.expanded ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
@@ -79,7 +82,7 @@ const mapStateToProps = (state, props) => ({
   settings: state.settings
 })
 
-export default connect(
-  mapStateToProps,
-  { toggleTimeRangeActive, setTimeRange }
-)(withStyles(styles)(ClubExpansionList))
+export default connect(mapStateToProps, {
+  toggleTimeRangeActive,
+  setTimeRange
+})(withStyles(styles)(ClubExpansionList))

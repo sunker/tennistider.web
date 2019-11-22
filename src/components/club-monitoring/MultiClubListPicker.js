@@ -23,7 +23,10 @@ class MultiClubListPicker extends Component {
             key={club.id}
             style={{ margin: 0, height: 66, paddingLeft: 0, paddingRight: 0 }}
           >
-            <Avatar alt={club.name} src={`/img/${club.image}`} />
+            <Avatar
+              alt={club.name}
+              src={club.imageSrc ? club.imageSrc : `/img/${club.image}`}
+            />
             <ListItemText primary={club.name} secondary={club.location} />
             <ListItemSecondaryAction>
               <Checkbox
