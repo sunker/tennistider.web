@@ -27,11 +27,11 @@ class DaySlotsPerClub extends Component {
             >
               <Avatar
                 alt={clubId.name}
-                src={`/img/${
+                src={
                   clubs[clubId][0].imageSrc
                     ? clubs[clubId][0].imageSrc
-                    : clubs[clubId][0].image
-                }`}
+                    : `/img/${clubs[clubId][0].image}`
+                }
               />
               <ListItemText
                 className={'slot-list-item-text'}
