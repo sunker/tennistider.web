@@ -17,8 +17,13 @@ class SlotList extends Component {
   render() {
     const { slots } = this.props
     const days = _.groupBy(
-      slots.sort(s => new Date(s.date).getTime()),
-      s => `${new Date(s.date).getMonth()}${new Date(s.date).getDate()}`
+      slots.sort(function(a, b) {
+        return a.date.getTime() - b.date.getTime()
+      }),
+      s =>
+        `${new Date(s.date).getMonth()}${(
+          '0' + new Date(s.date).getDate()
+        ).slice(-2)}`
     )
 
     return (
